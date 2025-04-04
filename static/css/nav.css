@@ -1,0 +1,202 @@
+/* Navbar Base Styles */
+.navbar {
+    background: rgba(0, 0, 0, 0.2) !important;
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.navbar .container {
+    padding: 0 1.5rem;
+}
+
+.navbar-brand {
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand i {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+/* Navigation Links */
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #fff !important;
+}
+
+/* Profile Section */
+.profile-pic-wrapper {
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-pic-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+
+
+/* Update navbar-toggler styles in nav.css */
+.navbar-toggler {
+    display: none; /* Hide by default for all devices */
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .navbar .container {
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+
+    .navbar-toggler {
+        display: block; /* Show only on mobile */
+        padding: 0.25rem;
+        font-size: 1.25rem;
+        color: white;
+        border: none;
+        transition: transform 0.3s ease;
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: none;
+    }
+
+    .navbar-toggler .bi-list {
+        font-size: 1.5rem;
+    }
+
+    .navbar-collapse {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.95);
+        padding: 1rem;
+        border-radius: 0 0 12px 12px;
+        margin-top: 0.5rem;
+        overflow: hidden;
+    }
+
+    .navbar-collapse.show {
+        display: block;
+        margin-top: 0.5rem;
+    }
+
+    .navbar-nav {
+        width: 100%;
+        flex-direction: column;
+        margin-top: 0.5rem;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+    }
+
+    .navbar-collapse.show .navbar-nav {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .nav-link {
+        padding: 1rem;
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-item {
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transform: translateX(-10px);
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .navbar-collapse.show .nav-item {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    .nav-item:last-child {
+        border-bottom: none;
+    }
+
+    .profile-pic-wrapper {
+        margin-right: 1rem;
+    }
+
+    .navbar.expanded {
+        background: rgba(0, 0, 0, 0.95) !important;
+        padding-bottom: 0;
+    }
+
+    .navbar-toggler.collapsed {
+        transform: rotate(0);
+    }
+
+    .navbar-toggler:not(.collapsed) {
+        transform: rotate(90deg);
+    }
+
+    .nav-item:nth-child(1) { transition-delay: 0.1s; }
+    .nav-item:nth-child(2) { transition-delay: 0.2s; }
+    .nav-item:nth-child(3) { transition-delay: 0.3s; }
+    .nav-item:nth-child(4) { transition-delay: 0.4s; }
+}
+
+/* Desktop styles - keep navbar items visible */
+@media (min-width: 769px) {
+    .navbar-collapse {
+        display: flex !important; /* Always show on desktop */
+        opacity: 1 !important;
+        visibility: visible !important;
+        height: auto !important;
+    }
+
+    .navbar-nav {
+        flex-direction: row !important;
+    }
+}
+
+/* Touch Device Styles */
+@media (hover: none) {
+    .nav-link {
+        padding: 0.75rem 1rem;
+    }
+
+    .nav-link:active {
+        opacity: 0.7;
+    }
+}

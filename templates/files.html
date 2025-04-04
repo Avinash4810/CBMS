@@ -1,0 +1,2132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Files - Cloud Storage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <style>
+        /* Add/update these styles */
+        body {
+            padding-top: 60px; /* Adjust based on navbar height */
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden; /* Hide page scroll */
+        }
+
+        .container {
+            max-width: 1140px;
+        }
+
+        /* Update the main card styles */
+.main-card {
+    width: 120%; /* Increased from 110% */
+    margin: 0 -10%; /* Center the wider card */
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    height: calc(100vh - 140px);
+    overflow: hidden;
+}
+
+        
+
+         /* Improve scrolling on mobile */
+         .table-container {
+    width: 100%; /* Changed from 110% to fit parent */
+    overflow-y: auto;
+    overflow-x: auto;
+    background: white;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+    padding: 0;
+    height: calc(100vh - 240px);
+    scrollbar-width: thin;
+    scrollbar-color: #764ba2 rgba(118, 75, 162, 0.1);
+    flex: 1;
+}
+
+        /* Add this for single row behavior */
+        .table-container:has(tbody tr:only-child) {
+            height: auto; /* Auto height for single row */
+            min-height: 80px; /* Minimum height */
+            max-height: calc(100vh - 200px); /* Maximum height */
+        }
+
+        .table-container:has(.empty-state) thead {
+            display: none;
+        }
+
+        /* Add these styles for single row behavior */
+        .table-container:has(.file-row:only-child) {
+            height: auto; /* Let height adjust to content */
+            overflow-y: hidden; /* Hide scrollbar when not needed */
+        }
+
+        /* Update table styles */
+        .table {
+    width: 100%; /* Changed from 110% to fit container */
+    margin: 0;
+    background: white;
+    border-collapse: collapse;
+}
+
+/* Fix table header */
+.table thead {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+}
+
+.table thead th {
+    background: white;
+    border-bottom: 2px solid rgba(118, 75, 162, 0.1);
+    padding: 1rem;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+}
+
+        .table tbody {
+            height: auto;
+        }
+
+        .file-row {
+            height: auto;
+            transition: all 0.2s ease;
+        }
+
+        /* Ensure proper padding */
+        .table td {
+            padding: 1rem 2rem;
+            vertical-align: middle;
+            border-bottom: 1px solid rgba(118, 75, 162, 0.1);
+            height: auto;
+        }
+
+        .btn-download {
+            background: #764ba2;
+            border-color: #764ba2;
+            color: white;
+        }
+
+        .btn-download:hover {
+            background: #667eea;
+            border-color: #667eea;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            border-color: #dc3545;
+            color: white;
+            margin-left: 0.5rem;
+        }
+
+        .btn-delete:hover {
+            background: #bb2d3b;
+            border-color: #bb2d3b;
+            color: white;
+        }
+
+        .file-icon {
+            font-size: 1.2rem;
+            color: #667eea;
+        }
+
+        .checkbox-column {
+            width: 40px;
+        }
+
+        .delete-actions {
+            display: none;
+        }
+
+        .delete-actions.show {
+            display: block;
+        }
+
+        /* Add these styles to your existing CSS */
+        .table th:nth-child(3), 
+        .table td:nth-child(3) {
+           width: 100px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Ensure proper column widths */
+        .table th:nth-child(1), /* Checkbox column */
+        .table td:nth-child(1) {
+            width: 40px;
+        }
+
+        .table th:nth-child(2), /* Filename column */
+        .table td:nth-child(2) {
+            min-width: 210px;
+        }
+
+        .table th:nth-child(4), /* Size column */
+        .table td:nth-child(4) {
+            width: 120px;
+        }
+
+        .table th:nth-child(5), /* Upload Date column */
+        .table td:nth-child(5) {
+            width: 170px;
+        }
+
+        .table th:nth-child(6), /* Actions column */
+        .table td:nth-child(6) {
+            width: 190px;
+        }
+
+        /* Update empty state styles */
+        .empty-state {
+            height: auto;
+            min-height: 400px;
+            padding: 4rem 2rem;
+            background: white;
+            border-bottom-left-radius: 18px !important;
+            border-bottom-right-radius: 18px !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .empty-illustration {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin-top: 0.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateY(-20px); /* Move icon up */
+        }
+
+        .empty-illustration i {
+            font-size: 3.5rem;
+            color: #764ba2;
+            opacity: 0.5;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .empty-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            transform: translateY(-10px); /* Move text up */
+        }
+
+        .empty-description {
+            color: #666;
+            font-size: 1rem;
+            transform: translateY(-10px); /* Move text up */
+        }
+
+        /* Add animation keyframes */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .empty-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+        }
+
+        .empty-dots span {
+            width: 3px;
+            height: 3px;
+            background: #764ba2;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .action-buttons {
+            position: relative;
+            min-height: 38px;
+        }
+
+        .btn-link:hover {
+            opacity: 0.8;
+        }
+
+        .btn-link:focus {
+            box-shadow: none;
+        }
+
+        .form-check-input {
+            border-color: #764ba2;
+            border-width: 1.5px;
+            cursor: pointer;
+            width: 14px;
+            height: 14px;
+            margin: 0;
+        }
+
+        .form-check-input:checked {
+            background-color: #764ba2;
+            border-color: #764ba2;
+        }
+
+        .form-check-input:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 0 0.25rem rgba(118, 75, 162, 0.25);
+        }
+
+        .table-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+        .table-container::-webkit-scrollbar-track {
+            background: rgba(118, 75, 162, 0.1);
+            border-radius: 4px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            border-radius: 4px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        /* Style first and last rows */
+        .table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table tbody tr:last-child td:first-child {
+            border-bottom-left-radius: 18px;
+        }
+
+        .table tbody tr:last-child td:last-child {
+            border-bottom-right-radius: 18px;
+        }
+
+        /* Update header styles */
+        .table thead {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
+        }
+
+        .table thead th {
+            padding: 1rem;
+            background: white;
+            border-bottom: 2px solid rgba(118, 75, 162, 0.1);
+            font-weight: 600;
+            color: #333;
+        }
+
+        .table-light {
+            --bs-table-bg: white;
+        }
+
+        /* Add shadow to make header more visible */
+        .table thead::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 2px;
+            background: white;
+        }
+
+        .table thead tr {
+            height: 56px;
+        }
+
+        /* Add spacing for table cells */
+        .table tbody td {
+            padding: 1rem;
+            vertical-align: middle;
+            background: white;
+            font-size: 0.9rem; /* Decrease font size */
+        }
+
+        .table tbody .file-icon {
+            font-size: 1rem; /* Slightly decrease icon size */
+        }
+
+        /* Update table columns to better fit wider space */
+        .table th:first-child,
+        .table td:first-child {
+            position: sticky;
+            left: 0;
+            background: white;
+            z-index: 5;
+            padding-left: 2rem;
+        }
+
+        /* Special z-index for header first column */
+        .table thead th:first-child {
+            z-index: 15;
+        }
+
+        /* Update table columns to better fit wider space */
+        .table th:last-child,
+        .table td:last-child {
+            padding-right: 2rem;
+        }
+
+        /* Remove duplicate borders */
+        .table > :not(:first-child) {
+            border-top: none;
+        }
+
+        /* Update hover effect to respect border radius */
+        .file-row:hover td {
+            background: rgba(118, 75, 162, 0.05) !important;
+        }
+
+        .file-row:hover td:first-child {
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+
+        .file-row:hover td:last-child {
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        .table-responsive {
+            overflow-x: hidden;
+        }
+
+        .p-4.border-bottom {
+            background: white;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 18px;
+            flex-shrink: 0;
+        }
+
+        /* Add these to your existing styles */
+        .badge {
+            font-size: 0.8rem;
+            padding: 0.4em 0.8em;
+        }
+
+        .empty-state {
+            color: #6c757d;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: #dee2e6;
+        }
+
+        .file-row:hover {
+            background-color: rgba(118, 75, 162, 0.05);
+        }
+
+        .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        /* Update the checkbox column style */
+        .select-column {
+            width: 30px;
+            text-align: center;
+            display: none;  /* Hidden by default */
+        }
+
+        /* Add these styles */
+        #selectFilesBtn {
+            transition: opacity 0.2s;
+        }
+
+        #selectFilesBtn:hover {
+            opacity: 0.8;
+        }
+
+        #cancelSelection {
+            transition: opacity 0.2s;
+        }
+
+        #cancelSelection:hover {
+            opacity: 0.8;
+        }
+
+        .btn-link {
+            text-decoration: none;
+        }
+
+        .fs-5 {
+            font-size: 1.25rem !important;
+        }
+
+        /* Add to your existing styles */
+        #deleteBtn {
+            border: none;
+            padding: 0;
+        }
+
+        #deleteBtn:hover {
+            opacity: 0.8;
+        }
+
+        #deleteBtn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #cancelSelection {
+            border: none;
+        }
+
+        #cancelSelection:hover {
+            opacity: 0.8;
+        }
+
+        /* SweetAlert2 Custom Styles */
+        .swal2-popup {
+            border-radius: 18px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+        }
+
+        .swal2-title {
+            color: #333;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .swal2-html-container {
+            color: #666;
+        }
+
+        .swal2-confirm {
+            border-radius: 8px !important;
+            padding: 0.75rem 1.5rem !important;
+            font-size: 1rem !important;
+        }
+
+        .swal2-cancel {
+            border-radius: 8px !important;
+            padding: 0.75rem 1.5rem !important;
+            font-size: 1rem !important;
+        }
+
+        .swal2-icon {
+            border-width: 3px;
+        }
+
+        .swal2-timer-progress-bar-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            overflow: hidden;
+        }
+
+        .swal2-timer-progress-bar {
+            background: linear-gradient(to right, #764ba2, #667eea);
+            height: 3px;
+            transition: width 0.1s linear;
+        }
+
+        .swal2-icon.swal2-success {
+            border-color: #764ba2;
+            color: #764ba2;
+        }
+
+        .swal2-success-circular-line-left,
+        .swal2-success-circular-line-right,
+        .swal2-success-fix {
+            background: transparent !important;
+        }
+
+        .swal2-success-ring {
+            border-color: rgba(118, 75, 162, 0.3);
+        }
+
+        .swal2-icon.swal2-success [class^='swal2-success-line'] {
+            background-color: #764ba2;
+        }
+
+        /* Toast notification styles */
+        .swal2-toast {
+            background: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .swal2-timer-progress-bar {
+            background: rgba(118, 75, 162, 0.5);
+        }
+
+        /* Modern Alert Styles */
+        .modern-popup {
+            padding: 2.5rem;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .modern-progress {
+            height: 3px;
+            background: linear-gradient(to right, #764ba2, #667eea);
+            border-radius: 2px;
+        }
+
+        .delete-confirmation {
+            text-align: center;
+            padding: 1.5rem 0;
+        }
+
+        .delete-confirmation i {
+            color: #ffc107;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .success-animation {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .checkmark-circle {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: circle-appear 0.3s ease-out;
+        }
+
+        .checkmark-icon {
+            width: 30px;
+            height: 60px;
+            border-right: 6px solid white;
+            border-bottom: 6px solid white;
+            transform: rotate(45deg) translate(-5px, -5px);
+            animation: checkmark 0.4s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+
+        @keyframes circle-appear {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes checkmark {
+            from {
+                opacity: 0;
+                transform: rotate(45deg) translate(-5px, -5px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: rotate(45deg) translate(-5px, -5px) scale(1);
+            }
+        }
+
+        
+
+        /* Fade effect for content when countdown shows */
+        .success-animation.fade {
+            opacity: 0.3;
+        }
+
+        .delete-confirmation {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .delete-confirmation i {
+            color: #ffc107;
+            margin-bottom: 1rem;
+        }
+
+        .delete-confirmation p {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .delete-confirmation .text-muted {
+            font-size: 0.9rem;
+        }
+
+        .modern-progress {
+            background: linear-gradient(to right, #dc3545, #ff6b6b);
+            height: 3px;
+        }
+
+        /* Processing Animation Styles */
+        .deletion-progress {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .loader-ring {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            padding: 3px;
+            animation: spin 2s linear infinite;
+        }
+
+        .loader-circle {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .process-title {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .process-subtitle {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* Success Message Styles */
+        .success-ring {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+        }
+
+        .checkmark-circle {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(45deg, #764ba2, #667eea);
+        }
+
+        .success-content {
+            text-align: center;
+        }
+
+        .success-title {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .success-message {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .success-progress {
+            height: 3px;
+            background: rgba(118, 75, 162, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        .progress-ring {
+            height: 100%;
+            background: linear-gradient(to right, #764ba2, #667eea);
+            animation: progress 2s linear;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes progress {
+            0% {
+                width: 0%;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+
+        .modern-popup {
+            padding: 2.5rem;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Modern Processing Styles */
+        .modern-processing {
+            text-align: center;
+            padding: 2.5rem 1rem;
+        }
+
+        .processing-icon {
+            margin-bottom: 1.5rem;
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+        }
+
+        .trash-bin {
+            position: relative;
+            z-index: 2;
+        }
+
+        .trash-bin i {
+            font-size: 3rem;
+            color: #764ba2;
+            position: relative;
+            z-index: 2;
+        }
+
+        .processing-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border: 3px solid transparent;
+            border-top-color: #764ba2;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            z-index: 1;
+        }
+
+        .processing-title {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .processing-message {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Modern Success Styles */
+        .modern-success {
+            text-align: center;
+            padding: 2rem 1rem 3rem;
+        }
+
+        .success-icon {
+            margin-bottom: 2rem;
+        }
+
+        .checkmark-circle {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: circle-appear 0.3s ease-out;
+        }
+
+        .modern-popup {
+            padding: 2.5rem;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modern-timer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, #764ba2, #667eea);
+            transform-origin: left;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        /* Modern Success Card Styles */
+        .modern-success-popup {
+            padding: 2rem !important;
+            border-radius: 24px !important;
+            background: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+            max-width: 400px !important;
+            width: 90% !important;
+            position: relative; /* Add this */
+            overflow: hidden; /* Add this */
+        }
+
+        .modern-success-card {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .success-icon-wrapper {
+            margin-bottom: 1.5rem;
+        }
+
+        .success-circle {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            border-radius: 50%;
+            margin: 0 auto;
+            position: relative;
+            animation: scaleIn 0.3s ease-out;
+        }
+
+        .success-tick {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            width: 32px;
+            height: 60px;
+            border-bottom: 8px solid white;
+            border-right: 8px solid white;
+            animation: tickIn 0.4s ease-out 0.3s forwards;
+            opacity: 0;
+            transform-origin: 50% 50%;
+        }
+
+        .success-heading {
+            color: #333;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeUpIn 0.5s ease-out 0.4s forwards;
+        }
+
+        .success-text {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 0;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeUpIn 0.5s ease-out 0.5s forwards;
+        }
+
+        .modern-timer-bar {
+            position: absolute !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 4px !important;
+            background: linear-gradient(to right, #764ba2, #667eea) !important;
+            border-bottom-left-radius: 24px !important;
+            border-bottom-right-radius: 24px !important;
+            transform-origin: left !important;
+            width: 100% !important; /* Add this */
+            animation: timer 2s linear forwards !important;
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes tickIn {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) rotate(45deg) scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) rotate(45deg) scale(1);
+            }
+        }
+
+        @keyframes fadeUpIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes timer {
+            from {
+                transform: scaleX(1);
+            }
+            to {
+                transform: scaleX(0);
+            }
+        }
+
+        /* Custom Download Button Styles */
+        .btn-download {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            padding: 0.5rem 1rem;
+        }
+
+        .btn-download:hover {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(118, 75, 162, 0.2);
+            color: white;
+        }
+
+        .btn-download:active {
+            transform: translateY(0);
+        }
+
+        .btn-download .download-icon {
+            margin-right: 0.5rem;
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-download:hover .download-icon {
+            transform: translateY(2px);
+        }
+
+        /* Download Progress Animation */
+        .btn-download.downloading {
+            pointer-events: none;
+            position: relative;
+        }
+
+        .btn-download.downloading::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.5);
+            animation: downloadProgress 2s linear infinite;
+            width: 100%;
+        }
+
+        @keyframes downloadProgress {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        /* Update these color-related styles */
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(118, 75, 162, 0.2);
+        }
+
+        .file-icon {
+            color: #667eea;
+        }
+
+        .nav-link.active {
+            color: #764ba2 !important;
+        }
+
+        .form-check-input:checked {
+            background-color: #764ba2;
+            border-color: #764ba2;
+        }
+
+        .text-primary {
+            color: #764ba2 !important;
+        }
+
+        /* Update link colors */
+        a {
+            color: #764ba2;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #667eea;
+        }
+
+        /* Update the upload button */
+        #uploadBtn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        #uploadBtn:hover {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(118, 75, 162, 0.2);
+        }
+
+        /* Modern Empty State Styles */
+        .empty-state {
+            padding: 4rem 2rem;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-bottom-left-radius: 18px !important;
+            border-bottom-right-radius: 18px !important;
+        }
+
+        .empty-icon-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .empty-illustration {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .empty-illustration i {
+            font-size: 4rem;
+            color: #764ba2;
+            opacity: 0.5;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .empty-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .empty-dots::before,
+        .empty-dots::after,
+        .empty-dots span {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #764ba2;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .empty-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .empty-dots::after {
+            animation-delay: 0.4s;
+        }
+
+        .empty-title {
+            color: #333;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .empty-description {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.5;
+            }
+        }
+
+        /* Add these styles to your existing CSS */
+        #selectFilesBtn .bi-trash {
+            color: #dc3545 !important; /* Force red color for trash icon */
+            font-size: 1.5rem !important; /* Increased from default */
+        }
+
+        #deleteBtn .bi-trash {
+            font-size: 1.5rem !important; /* Match the select button trash size */
+        }
+
+        #cancelSelection .bi-x-lg {
+            color: #764ba2; /* Theme color for X icon */
+            font-size: 1.5rem !important; /* Increased from 1.2rem */
+        }
+
+        /* Add some padding to the buttons to accommodate larger icons */
+        #selectFilesBtn,
+        #deleteBtn,
+        #cancelSelection {
+            padding: 0.25rem 0.5rem;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+       /* Add these responsive styles */
+@media (max-width: 768px) {
+    /* Layout & Container styles */
+    body {
+        padding-top: 56px;
+        overflow: hidden;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .container.py-5 {
+        padding-top: 1rem !important;
+    }
+
+    .main-card {
+        width: 100%; /* Full width on mobile */
+        margin: 1rem auto;
+        border-radius: 12px;
+    }
+
+     
+
+
+    .table-container {
+        border-radius: 12px;
+    }
+
+    .table td, 
+    .table th {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .table th:nth-child(4),
+    .table td:nth-child(4),
+    .table th:nth-child(5),
+    .table td:nth-child(5) {
+        display: none;
+    }
+
+    /* Header section styles */
+    .p-4.border-bottom {
+        position: relative;
+        padding: 1rem !important;
+    }
+
+    .p-4.border-bottom h2 {
+        width: 100%;
+        text-align: center;
+    }
+
+    .text-muted.mb-0.mt-1 {
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    /* Button styles */
+    #selectFilesBtn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+
+    #deleteBtn,
+    #cancelSelection {
+        position: fixed;
+        top: 70px;
+        right: 1rem;
+        z-index: 100;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 0.5rem;
+        border-radius: 8px;
+    }
+
+    #selectFilesBtn .bi-trash,
+    #deleteBtn .bi-trash {
+        color: #dc3545 !important;
+        font-size: 1.75rem !important;
+    }
+
+    #uploadBtn {
+        width: 100%;
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .btn-download {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .btn-download span {
+        display: none;
+    }
+
+    .btn-download .download-icon {
+        margin: 0;
+    }
+
+    /* Hide elements on mobile */
+    .table thead th:last-child .btn-upload,
+    .p-4.border-bottom .btn-primary {
+        display: none !important;
+    }
+
+    /* Flex container adjustments */
+    .navbar .d-flex {
+        flex-wrap: wrap;
+    }
+
+    th .select-column .form-check-input , td .select-column .form-check-input  {
+        width: 20px;
+        height: 20px;
+    }
+
+    .table-container:has(tbody tr:only-child) {
+        height: auto;
+        min-height: 60px; /* Smaller minimum height for mobile */
+        max-height: calc(100vh - 180px);
+    }
+
+    /* Adjust filename column width for mobile */
+    .table th:nth-child(2), 
+    .table td:nth-child(2) {
+        min-width: 160px; /* Decreased from 210px */
+        max-width: 160px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-right: 0.5rem;
+    }
+
+    /* Ensure the text truncates properly */
+    .table td:nth-child(2) span {
+        max-width: 120px; /* Even smaller than container */
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Add more horizontal padding to first column */
+    .table th:first-child,
+    .table td:first-child {
+        padding-left: 1rem;
+    }
+
+    /* Adjust last column padding */
+    .table th:last-child,
+    .table td:last-child {
+        padding-right: 1rem;
+    }
+
+
+    
+
+    .table th:nth-child(3), 
+    .table td:nth-child(3) {
+        min-width: 80px; /* Decreased width for results column */
+        max-width: 80px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-right: 0.5rem;
+    }
+
+    /* Ensure the text truncates properly */
+    .table td:nth-child(2) span,
+    .table td:nth-child(3) span {
+        max-width: 100%; /* Take full width of parent */
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Adjust cell padding for better spacing */
+    .table td, 
+    .table th {
+        padding: 0.75rem 0.4rem;
+        font-size: 0.85rem;
+    }
+
+    /* First and last column padding */
+    .table th:first-child,
+    .table td:first-child {
+        padding-left: 1rem;
+    }
+
+    .table th:last-child,
+    .table td:last-child {
+        padding-right: 1rem;
+    }
+}
+
+        /* Add to all templates */
+        @media (hover: none) {
+            .nav-link {
+        padding: 0.75rem 1rem;
+    }
+
+    .nav-link:active {
+        opacity: 0.7;
+    }
+
+            /* Better touch targets */
+            .btn {
+                min-height: 44px;
+            }
+            
+            /* Disable hover effects */
+            .btn:hover {
+                transform: none !important;
+            }
+            
+            /* Increase touch targets */
+            .btn-link,
+            .form-check-input {
+                padding: 0.5rem 0.75rem;
+            }
+            
+            /* Add active state for touch */
+            .btn:active,
+            .nav-link:active {
+                opacity: 0.7;
+            }
+        }
+
+
+
+
+
+.table {
+    margin: 0;
+    width: 100%;
+    background: white;
+    border-collapse: collapse;
+}
+
+/* Fix table header */
+.table thead {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+}
+
+
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    body {
+        padding-top: 56px;
+    }
+
+     
+    .table-container {
+        
+        max-height: calc(100vh - 180px);
+    }
+
+    .table {
+        min-width: 90%;
+    }
+
+    .table td, 
+    .table th {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+        <!-- Add this navbar structure to index.html and files.html -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <a class="navbar-brand d-flex align-items-center" href="/">
+                        <i class="bi bi-cloud-fill me-2" style="color: #ffffff"></i>
+                        Cloud Media Storage
+                    </a>
+                    <!-- Only shows on mobile -->
+                    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarContent">
+                        <div class="navbar-nav ms-auto">
+                            <!-- User Profile First -->
+                            <div class="nav-item d-flex align-items-center">
+                                <span class="nav-link text-white d-flex align-items-center">
+                                    {% if current_user.profile_pic %}
+                                    <div class="profile-pic-wrapper me-2">
+                                        <img src="{{ current_user.profile_pic }}" 
+                                             class="rounded-circle" 
+                                             width="24" 
+                                             height="24"
+                                             alt="{{ current_user.name }}">
+                                    </div>
+                                    {% endif %}
+                                    <span>{{ current_user.name }}</span>
+                                </span>
+                            </div>
+                            <!-- Navigation Links -->
+                            <a class="nav-link" href="/">Upload</a>
+                            <a class="nav-link" href="/files">My Files</a>
+                            <!-- Logout Last -->
+                            <a class="nav-link" href="{{ url_for('logout') }}">
+                                <i class="bi bi-box-arrow-right"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-11">
+                <div class="main-card">
+                    <!-- Update the header section -->
+                    <div class="p-4 border-bottom">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h2 class="mb-0">My Files</h2>
+                                <p class="text-muted mb-0 mt-1">
+                                    <i class="bi bi-cloud me-1"></i>
+                                    {{ files|length }} file{% if files|length != 1 %}s{% endif %} stored
+                                </p>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                {% if files %}
+                                <button id="selectFilesBtn" class="btn btn-link text-primary me-3">
+                                    <i class="bi bi-trash text-danger"></i> <!-- Added text-danger class for red color -->
+                                </button>
+                                <button id="deleteBtn" class="btn btn-link text-danger me-3" style="display: none;">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                                <button id="cancelSelection" class="btn btn-link text-primary" style="display: none;">
+                                    <i class="bi bi-x-lg"></i> <!-- Added X icon -->
+                                </button>
+                                {% endif %}
+                                <a href="/" class="btn btn-primary" id="uploadBtn">
+                                    <i class="bi bi-cloud-upload me-2"></i>Upload File
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="select-column" style="display: none;">
+                                        <input type="checkbox" id="selectAll" class="form-check-input">
+                                    </th>
+                                    <th>Filename</th>
+                                    <th>Type</th>
+                                    <th>Size (MB)</th>
+                                    <th>Upload Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if files %}
+                                    {% for file in files %}
+                                    <tr class="file-row">
+                                        <td class="select-column" style="display: none;">
+                                            <input type="checkbox" class="form-check-input file-checkbox" 
+                                                   name="file_checkbox" value="{{ file.user_file_id }}">
+                                        </td>
+                                        <td>
+                                            {% if file.mimetype.startswith('image/') %}
+                                                <i class="bi bi-file-image me-2 file-icon"></i>
+                                            {% elif file.mimetype.startswith('video/') %}
+                                                <i class="bi bi-file-play me-2 file-icon"></i>
+                                            {% elif file.mimetype.startswith('audio/') %}
+                                                <i class="bi bi-file-music me-2 file-icon"></i>
+                                            {% elif file.mimetype == 'application/pdf' %}
+                                                <i class="bi bi-file-pdf me-2 file-icon"></i>
+                                            {% else %}
+                                                <i class="bi bi-file-earmark me-2 file-icon"></i>
+                                            {% endif %}
+                                            {{ file.filename }}
+                                        </td>
+                                        <td>
+                                            {% if file.mimetype.startswith('image/') %}
+                                                Image
+                                            {% elif file.mimetype.startswith('video/') %}
+                                                Video
+                                            {% elif file.mimetype.startswith('audio/') %}
+                                                Audio
+                                            {% elif file.mimetype == 'application/pdf' %}
+                                                PDF
+                                            {% elif 'openxmlformats-officedocument' in file.mimetype or 'msword' in file.mimetype %}
+                                                Document
+                                            {% elif 'x-zip-compressed' in file.mimetype or 'zip' in file.mimetype %}
+                                                ZIP
+                                            {% else %}
+                                                {{ file.mimetype }}
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ file.size }}</td>
+                                        <td>{{ file.upload_date }}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a href="#" 
+                                                   class="btn btn-download"
+                                                   onclick="return handleDownload(this);"
+                                                   data-file-id="{{ file.user_file_id }}"
+                                                   data-filename="{{ file.filename }}"
+                                                   data-mimetype="{{ file.mimetype }}">
+                                                    <i class="bi bi-download download-icon"></i>
+                                                    <span>Download</span>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6" class="p-0">
+                                            <div class="empty-state">
+                                                <div class="empty-icon-wrapper">
+                                                    <div class="empty-illustration">
+                                                        <i class="bi bi-cloud-upload"></i>
+                                                        <div class="empty-dots">
+                                                            <span></span>
+                                                            <span></span>
+                                                            <span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <h3 class="empty-title">No files uploaded yet</h3>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function deleteFile(fileId) {
+            const willDelete = await Swal.fire({
+                html: `
+                    <div class="delete-confirmation">
+                        <i class="bi bi-exclamation-triangle fs-1 text-warning mb-3"></i>
+                        <p class="mb-2">Delete this file?</p>
+                        <p class="text-muted small">This action cannot be undone</p>
+                    </div>
+                `,
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Yes, delete',
+                cancelButtonText: 'No, cancel',
+                customClass: {
+                    popup: 'modern-popup'
+                }
+            });
+
+            if (willDelete.isConfirmed) {
+                Swal.fire({
+                    html: `
+                        <div class="modern-processing">
+                            <div class="processing-icon">
+                                <div class="trash-bin">
+                                    <i class="bi bi-trash-fill"></i>
+                                    <div class="processing-ring"></div>
+                                </div>
+                            </div>
+                            <h3 class="processing-title">Processing</h3>
+                            <p class="processing-message">Deleting your file...</p>
+                        </div>
+                    `,
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    customClass: {
+                        popup: 'modern-popup'
+                    },
+                    didOpen: () => {
+                        fetch('/delete-files', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ file_ids: [fileId] })
+                        }).then(() => {
+                            window.location.href = window.location.pathname + '?deleted=true';
+                        });
+                    }
+                });
+            }
+        }
+
+        // Fix the viewable file type check
+        async function handleDownload(link) {
+            try {
+                const fileId = link.dataset.fileId;
+                const filename = link.dataset.filename;
+                const mimetype = link.dataset.mimetype;
+                
+                // Show loading state
+                link.classList.add('downloading');
+                
+                // Get download URL
+                const response = await fetch(`/get-download-url/${fileId}`);
+                const data = await response.json();
+                
+                if (!response.ok) throw new Error(data.error);
+
+                // Show success toast
+                Swal.fire({
+                    toast: true,
+                    position: 'bottom-end',
+                    icon: 'info',
+                    title: `Downloading ${filename}...`,
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    customClass: {
+                        popup: 'modern-success-popup',
+                        timerProgressBar: 'modern-timer-bar'
+                    }
+                });
+
+                // Check if file type is viewable with simplified document type
+                const isViewable = (
+                    mimetype?.startsWith('image/') ||
+                    mimetype?.startsWith('video/') ||
+                    mimetype === 'application/pdf' ||
+                    mimetype === 'application/document'  // Simplified document type
+                );
+
+                if (isViewable) {
+                    // Open viewable files in new tab
+                    window.open(data.url, '_blank');
+                } else {
+                    // Direct download for other file types
+                    const link = document.createElement('a');
+                    link.href = data.url;
+                    link.download = filename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+                
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error.message || 'Failed to download file',
+                    confirmButtonColor: '#764ba2'
+                });
+            } finally {
+                link.classList.remove('downloading');
+            }
+            
+            return false;
+        }
+
+        async function deleteSelectedFiles() {
+            const selectedFiles = Array.from(document.querySelectorAll('input[name="file_checkbox"]:checked'))
+                .map(checkbox => parseInt(checkbox.value));
+            
+            if (selectedFiles.length === 0) {
+                await Swal.fire({
+                    icon: 'warning',
+                    title: 'No Files Selected',
+                    text: 'Please select files to delete',
+                    confirmButtonColor: '#764ba2'
+                });
+                return;
+            }
+
+            // Show confirmation dialog
+            const willDelete = await Swal.fire({
+                html: `
+                    <div class="delete-confirmation">
+                        <i class="bi bi-exclamation-triangle fs-1 text-warning mb-3"></i>
+                        <p class="mb-2">Delete ${selectedFiles.length} selected file(s)?</p>
+                        <p class="text-muted small">This action cannot be undone</p>
+                    </div>
+                `,
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Yes, delete',
+                cancelButtonText: 'No, cancel',
+                customClass: {
+                    popup: 'modern-popup'
+                }
+            });
+
+            // Update the deletion code to include a success parameter
+            if (willDelete.isConfirmed) {
+                Swal.fire({
+                    html: `
+                        <div class="modern-processing">
+                            <div class="processing-icon">
+                                <div class="trash-bin">
+                                    <i class="bi bi-trash-fill"></i>
+                                    <div class="processing-ring"></div>
+                                </div>
+                            </div>
+                            <h3 class="processing-title">Processing</h3>
+                            <p class="processing-message">Deleting your files...</p>
+                        </div>
+                    `,
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    customClass: {
+                        popup: 'modern-popup'
+                    },
+                    didOpen: () => {
+                        fetch('/delete-files', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ file_ids: selectedFiles })
+                        }).then(() => {
+                            // Add success parameter to URL
+                            window.location.href = window.location.pathname + '?deleted=true';
+                        });
+                    }
+                });
+            }
+        }
+
+        async function deleteAllFiles() {
+            // Get all file IDs
+            const allFileIds = Array.from(document.querySelectorAll('.file-row'))
+                .map(row => parseInt(row.querySelector('[data-file-id]')?.dataset.fileId))
+                .filter(id => !isNaN(id));
+
+            if (allFileIds.length === 0) {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'No Files',
+                    text: 'No files to delete',
+                    confirmButtonColor: '#764ba2'
+                });
+                return;
+            }
+
+            // Show warning dialog
+            const willDeleteAll = await Swal.fire({
+                html: `
+                    <div class="delete-confirmation">
+                        <i class="bi bi-exclamation-triangle fs-1 text-warning mb-3"></i>
+                        <p class="mb-2">Delete all files?</p>
+                        <p class="text-muted small">This will delete all ${allFileIds.length} files. This action cannot be undone.</p>
+                    </div>
+                `,
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Yes, delete all',
+                cancelButtonText: 'Cancel',
+                customClass: {
+                    popup: 'modern-popup'
+                }
+            });
+
+            if (willDeleteAll.isConfirmed) {
+                Swal.fire({
+                    html: `
+                        <div class="modern-processing">
+                            <div class="processing-icon">
+                                <div class="trash-bin">
+                                    <i class="bi bi-trash-fill"></i>
+                                    <div class="processing-ring"></div>
+                                </div>
+                            </div>
+                            <h3 class="processing-title">Processing</h3>
+                            <p class="processing-message">Deleting all files...</p>
+                        </div>
+                    `,
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    customClass: {
+                        popup: 'modern-popup'
+                    },
+                    didOpen: () => {
+                        fetch('/delete-files', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ file_ids: allFileIds })
+                        }).then(() => {
+                            window.location.href = window.location.pathname + '?deleted=true';
+                        });
+                    }
+                });
+            }
+        }
+
+        function updateDeleteButton() {
+            const checkedCount = document.querySelectorAll('input[name="file_checkbox"]:checked').length;
+            const deleteBtn = document.getElementById('deleteBtn');
+            if (deleteBtn) {
+                deleteBtn.disabled = checkedCount === 0;
+            }
+        }
+
+        function toggleDeleteMode(show) {
+            const selectColumns = document.querySelectorAll('.select-column');
+            const deleteBtn = document.getElementById('deleteBtn');
+            const selectFilesBtn = document.getElementById('selectFilesBtn');
+            const uploadBtn = document.getElementById('uploadBtn');
+            const cancelSelection = document.getElementById('cancelSelection');
+            const selectAll = document.getElementById('selectAll');
+            const fileCheckboxes = document.querySelectorAll('.file-checkbox');
+
+            selectColumns.forEach(col => {
+                col.style.display = show ? 'table-cell' : 'none';
+            });
+            
+            deleteBtn.style.display = show ? '' : 'none';
+            selectFilesBtn.style.display = show ? 'none' : '';
+            uploadBtn.style.display = show ? 'none' : '';
+            cancelSelection.style.display = show ? '' : 'none';
+            
+            if (!show) {
+                selectAll.checked = false;
+                fileCheckboxes.forEach(checkbox => checkbox.checked = false);
+                updateDeleteButton();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectFilesBtn = document.getElementById('selectFilesBtn');
+            const cancelSelection = document.getElementById('cancelSelection');
+            const deleteBtn = document.getElementById('deleteBtn');
+            const selectAll = document.getElementById('selectAll');
+            const fileCheckboxes = document.querySelectorAll('.file-checkbox');
+
+            selectFilesBtn?.addEventListener('click', () => toggleDeleteMode(true));
+            cancelSelection?.addEventListener('click', () => toggleDeleteMode(false));
+            deleteBtn?.addEventListener('click', deleteSelectedFiles);
+            
+            selectAll?.addEventListener('change', function() {
+                fileCheckboxes.forEach(checkbox => {
+                    checkbox.checked = this.checked;
+                });
+                updateDeleteButton();
+            });
+
+            fileCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateDeleteButton);
+            });
+
+            // Add this code to check for success parameter on page load
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('deleted') === 'true') {
+                Swal.fire({
+                    html: `
+                        <div class="modern-success-card">
+                            <div class="success-icon-wrapper">
+                                <div class="success-circle">
+                                    <div class="success-tick"></div>
+                                </div>
+                            </div>
+                            <div class="success-content">
+                                <h2 class="success-heading">Successfully Deleted!</h2>
+                                <p class="success-text">Files have been deleted.</p>
+                            </div>
+                        </div>
+                    `,
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    customClass: {
+                        popup: 'modern-success-popup',
+                        timerProgressBar: 'modern-timer-bar'
+                    },
+                    willClose: () => {
+                        // Clean URL after toast closes
+                        window.history.replaceState({}, document.title, window.location.pathname);
+                    }
+                });
+            }
+
+            // Add event listeners for download buttons
+            const downloadLinks = document.querySelectorAll('a[download]');
+            downloadLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    handleDownload(this);
+                });
+            });
+        });
+
+        // Add this to your existing script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fix navbar collapse on mobile
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+
+            if (navbarToggler && navbarCollapse) {
+                document.addEventListener('click', function(e) {
+                    if (!navbarCollapse.contains(e.target) && !navbarToggler.contains(e.target)) {
+                        navbarCollapse.classList.remove('show');
+                    }
+                });
+            }
+
+            // Handle delete button positioning on mobile
+            if (window.innerWidth <= 768) {
+                const deleteBtn = document.getElementById('deleteBtn');
+                const cancelBtn = document.getElementById('cancelSelection');
+                
+                if (deleteBtn && cancelBtn) {
+                    window.addEventListener('scroll', function() {
+                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                        deleteBtn.style.top = `${Math.max(70, scrollTop + 70)}px`;
+                        cancelBtn.style.top = `${Math.max(70, scrollTop + 70)}px`;
+                    });
+                }
+            }
+        });
+
+    
+    <!-- Add this script to both index.html and files.html -->
+
+document.addEventListener('DOMContentLoaded', function() {
+    const navbar = document.querySelector('.navbar');
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+
+    // Toggle menu icon rotation and navbar background
+    navbarToggler.addEventListener('click', function() {
+        navbar.classList.toggle('expanded');
+        this.classList.toggle('collapsed');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!navbar.contains(e.target)) {
+            navbarCollapse.classList.remove('show');
+            navbar.classList.remove('expanded');
+            navbarToggler.classList.add('collapsed');
+        }
+    });
+
+    // Handle Bootstrap collapse events
+    navbarCollapse.addEventListener('show.bs.collapse', function () {
+        navbar.classList.add('expanded');
+    });
+
+    navbarCollapse.addEventListener('hide.bs.collapse', function () {
+        navbar.classList.remove('expanded');
+    });
+
+    // Add animation delays to nav items
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach((item, index) => {
+        item.style.transitionDelay = `${(index + 1) * 0.1}s`;
+    });
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

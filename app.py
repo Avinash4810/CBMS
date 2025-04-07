@@ -41,7 +41,12 @@ from googleapiclient.discovery import build
 from flask_wtf.csrf import CSRFProtect
 from flask_wtf.csrf import generate_csrf
 
-load_dotenv()  # Load environment variables from .env file
+try:
+    from dotenv import load_dotenv
+    load_dotenv()  # Load environment variables from .env file
+except ImportError:
+    # In production, environment variables should be set in the hosting platform
+    pass
 
 # At the top of the file, after creating Flask app
 csrf = CSRFProtect()

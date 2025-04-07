@@ -41,6 +41,10 @@ import io
 from googleapiclient.discovery import build
 from flask_wtf.csrf import CSRFProtect
 from flask_wtf.csrf import generate_csrf
+import pytz
+
+# Create a timezone object for IST
+ist = pytz.timezone('Asia/Kolkata')
 
 # Keep these environment variable settings
 if not os.path.exists("service-account.json"):
@@ -430,10 +434,10 @@ def upload_file():
                 # Save to database
                 cur.execute("""
                     INSERT INTO files 
-                    (user_file_id, user_id, filename, storage_path, mimetype, filesize) 
-                    VALUES (?, ?, ?, ?, ?, ?)
+                    (user_file_id, user_id, filename, storage_path, mimetype, filesize, upload_timestamp) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
                 """, (next_file_id, current_user.id, filename, storage_path, 
-                     content_type, filesize))
+                     content_type, filesize, get_ist_time()))
                 
                 uploaded_files.append({
                     'filename': filename,
@@ -630,7 +634,12 @@ def test_upload():
 # Basic HTML form for testing
 @app.route("/")
 def index():
-    return render_template('index.html', user=current_user)
+    # Get current time in IST
+    now = datetime.now(ist)
+    return render_template('index.html', 
+        user=current_user,
+        now=now  # This will be IST
+    )
 
 # Route for rendering the upload page
 @app.route("/upload")
@@ -689,10 +698,10 @@ def upload_files():
                 # Save to database
                 cur.execute("""
                     INSERT INTO files 
-                    (user_file_id, user_id, filename, storage_path, mimetype, filesize) 
-                    VALUES (?, ?, ?, ?, ?, ?)
+                    (user_file_id, user_id, filename, storage_path, mimetype, filesize, upload_timestamp) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
                 """, (next_file_id, current_user.id, filename, storage_path, 
-                     content_type, filesize))
+                     content_type, filesize, get_ist_time()))
                 
                 uploaded_files.append({
                     'filename': filename,
@@ -1150,6 +1159,19 @@ def delete_gdrive_files():
 
 # Initialize CSRF protection after creating the Flask app
 csrf = CSRFProtect(app)
+
+@app.route("/privacy-policy")
+def privacy_policy():
+    return render_template('privacy-policy.html')
+
+@app.route("/terms")
+def terms():
+    return render_template('terms.html')
+
+# Add this helper function
+def get_ist_time():
+    """Get current time in IST"""
+    return datetime.now(ist).strftime('%Y-%m-%d %H:%M:%S')
 
 # Update the initialization code
 if __name__ == "__main__":

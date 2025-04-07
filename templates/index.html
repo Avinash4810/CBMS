@@ -813,6 +813,38 @@
         display: inline-block !important;
     }
 }
+
+footer {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    margin-top: auto;
+}
+
+footer a {
+    transition: opacity 0.3s ease;
+}
+
+footer a:hover {
+    opacity: 1 !important;
+}
+
+@media (max-width: 768px) {
+    footer {
+        padding: 2rem 1rem;
+    }
+    
+    footer .gap-3 {
+        gap: 1rem !important;
+    }
+}
+
+/* Touch device styles */
+@media (hover: none) {
+    footer a:active {
+        opacity: 0.5;
+    }
+}
     </style>
 </head>
 <header>
@@ -1072,5 +1104,25 @@
 <div class="scroll-indicator">
     <i class="bi bi-arrow-up"></i>
 </div>
+
+<!-- Add footer section -->
+<footer class="py-4 mt-auto">
+    <div class="container">
+        <div class="text-center">
+            <div class="d-flex justify-content-center align-items-center flex-wrap gap-3">
+                <a href="{{ url_for('privacy_policy') }}" class="text-white text-decoration-none opacity-75 small">
+                    Privacy Policy
+                </a>
+                <span class="text-white opacity-50">•</span>
+                <a href="{{ url_for('terms') }}" class="text-white text-decoration-none opacity-75 small">
+                    Terms & Conditions
+                </a>
+            </div>
+            <p class="mt-3 mb-0 text-white opacity-50 small">
+                © {{ now.year }} Cloud Media Storage. All rights reserved.
+            </p>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

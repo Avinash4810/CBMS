@@ -21,7 +21,6 @@ OAUTH2_CONFIG = {
             "http://127.0.0.1:5000/oauth2callback",
             # Production URIs
             "https://cbms.onrender.com/callback",
-            "https://cbms.onrender.com/auth/callback",
             "https://cbms.onrender.com/oauth2callback"
         ]
     }

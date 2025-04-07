@@ -43,8 +43,12 @@ from flask_wtf.csrf import CSRFProtect
 from flask_wtf.csrf import generate_csrf
 import pytz
 
-# Create a timezone object for IST
-ist = pytz.timezone('Asia/Kolkata')
+# Add near the top of app.py
+PRODUCTION = os.getenv('PRODUCTION', 'false').lower() == 'true'
+REDIRECT_URI = "https://cbms.onrender.com/callback" if PRODUCTION else "http://localhost:5000/callback"
+
+# Remove or comment out the IST timezone code
+# ist = pytz.timezone('Asia/Kolkata')
 
 # Keep these environment variable settings
 if not os.path.exists("service-account.json"):
@@ -138,6 +142,7 @@ CORS(app, resources={
         "origins": [
             "http://localhost:5000",
             "http://127.0.0.1:5000",
+           "https://cbms.onrender.com",
             "https://storage.googleapis.com"
         ],
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -196,7 +201,7 @@ flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         "https://www.googleapis.com/auth/drive.file",  # Add this scope for Drive access
         "openid"
     ],
-    redirect_uri=["https://cbms.onrender.com/callback", "http://localhost:5000/callback"]
+    redirect_uri=REDIRECT_URI
 )
 
 # Add these at the top of your file
@@ -437,7 +442,7 @@ def upload_file():
                     (user_file_id, user_id, filename, storage_path, mimetype, filesize, upload_timestamp) 
                     VALUES (?, ?, ?, ?, ?, ?, ?)
                 """, (next_file_id, current_user.id, filename, storage_path, 
-                     content_type, filesize, get_ist_time()))
+                     content_type, filesize, get_current_time()))
                 
                 uploaded_files.append({
                     'filename': filename,
@@ -635,7 +640,7 @@ def test_upload():
 @app.route("/")
 def index():
     # Get current time in IST
-    now = datetime.now(ist)
+    now = datetime.utcnow()
     return render_template('index.html', 
         user=current_user,
         now=now  # This will be IST
@@ -701,7 +706,7 @@ def upload_files():
                     (user_file_id, user_id, filename, storage_path, mimetype, filesize, upload_timestamp) 
                     VALUES (?, ?, ?, ?, ?, ?, ?)
                 """, (next_file_id, current_user.id, filename, storage_path, 
-                     content_type, filesize, get_ist_time()))
+                     content_type, filesize, get_current_time()))
                 
                 uploaded_files.append({
                     'filename': filename,
@@ -1169,9 +1174,9 @@ def terms():
     return render_template('terms.html')
 
 # Add this helper function
-def get_ist_time():
-    """Get current time in IST"""
-    return datetime.now(ist).strftime('%Y-%m-%d %H:%M:%S')
+def get_current_time():
+    """Get current time in UTC"""
+    return datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
 
 # Update the initialization code
 if __name__ == "__main__":

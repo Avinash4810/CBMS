@@ -196,7 +196,7 @@ flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         "https://www.googleapis.com/auth/drive.file",  # Add this scope for Drive access
         "openid"
     ],
-    redirect_uri="http://localhost:5000/callback"
+    redirect_uri=["https://cbms.onrender.com/callback", "http://localhost:5000/callback"]
 )
 
 # Add these at the top of your file

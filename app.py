@@ -44,8 +44,8 @@ from flask_wtf.csrf import generate_csrf
 import pytz
 
 # Add near the top of app.py
-PRODUCTION = os.getenv('PRODUCTION', 'false').lower() == 'true'
-REDIRECT_URI = "https://cbms.onrender.com/callback" if PRODUCTION else "http://localhost:5000/callback"
+PRODUCTION = os.getenv('PRODUCTION', 'true').lower() == 'true'  # Default to True for render.com
+REDIRECT_URI = "https://cbms.onrender.com/callback"  # Use production URI
 
 # Remove or comment out the IST timezone code
 # ist = pytz.timezone('Asia/Kolkata')
@@ -137,25 +137,13 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "service-account.json")
 )
 
+# Update CORS configuration
 CORS(app, resources={
     r"/*": {
-        "origins": [
-            "http://localhost:5000",
-            "http://127.0.0.1:5000",
-           "https://cbms.onrender.com",
-            "https://storage.googleapis.com"
-        ],
+        "origins": ["https://cbms.onrender.com"],
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        "allow_headers": [
-            "Content-Type", 
-            "Authorization",
-            "x-requested-with",
-            "Access-Control-Allow-Origin",
-            "Access-Control-Allow-Methods",
-            "Access-Control-Allow-Headers"
-        ],
-        "supports_credentials": True,
-        "max_age": 3600
+        "allow_headers": ["Content-Type", "Authorization", "X-CSRF-Token"],
+        "supports_credentials": True
     }
 })
 

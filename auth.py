@@ -14,14 +14,12 @@ OAUTH2_CONFIG = {
         'auth_provider_x509_cert_url': 'https://www.googleapis.com/oauth2/v1/certs',
         'client_secret': GOOGLE_CLIENT_SECRET,
         'redirect_uris': [
-            # Development URIs
-            "http://localhost:5000/callback",
-            "http://127.0.0.1:5000/callback",
-            "http://localhost:5000/oauth2callback",
-            "http://127.0.0.1:5000/oauth2callback",
             # Production URIs
             "https://cbms.onrender.com/callback",
             "https://cbms.onrender.com/oauth2callback"
+        ],
+        'javascript_origins': [
+            "https://cbms.onrender.com"
         ]
     }
 }

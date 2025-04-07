@@ -1,4 +1,5 @@
 import os
+import json
 import sys
 import logging
 import time
@@ -40,6 +41,18 @@ import io
 from googleapiclient.discovery import build
 from flask_wtf.csrf import CSRFProtect
 from flask_wtf.csrf import generate_csrf
+
+# Keep these environment variable settings
+if not os.path.exists("service-account.json"):
+    raise FileNotFoundError(
+        "service-account.json not found. Please add your Google Cloud credentials file."
+    )
+
+# Verify environment variable is set
+if 'GOOGLE_APPLICATION_CREDENTIALS' not in os.environ:
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "service-account.json")
+    )
 
 try:
     from dotenv import load_dotenv

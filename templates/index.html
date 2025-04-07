@@ -1,792 +1,1076 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Cloud Media Storage</title>
-    <!-- Keep these regular links -->
+    <title>Cloud Media Storage - Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
     <style>
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding-top: 75px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) fixed;
+    overflow-x: hidden;
+    padding-top: 76px;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(118, 75, 162, 0.5) rgba(255, 255, 255, 0.1);
         }
+
+        header .navbar {
+    background: rgba(0, 0, 0, 0.2) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(8px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+
+
         .container {
-            max-width: 1140px;  /* Changed from 1400px to match files.html */
-        }
-        .main-card {
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
-            width: 600px;
-            margin: 0 auto;
-            min-height: auto;
-            position: relative;
-            transition: all 0.3s ease;
+            max-width: 1140px;
+            padding: 0 15px;
+            width: 100%;
         }
 
-        /* Improve scrolling on mobile */
-        .table-container {
-            -webkit-overflow-scrolling: touch;
+        .hero-section {
+            margin-top: 6px;
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
         }
 
-        .upload-zone {
-            border: 2px dashed rgba(118, 75, 162, 0.3);
-            border-radius: 16px;
+        /* Reduced margin when logged in */
+.hero-section.logged-in {
+    margin-bottom: 1rem; /* Reduced margin for logged in users */
+    padding: 2rem 0; /* Reduced padding too */
+}
+
+/* Adjust mobile styles */
+@media (max-width: 768px) {
+    .hero-section.logged-in {
+        margin-bottom: 0.5rem;
+        padding: 1.5rem 0;
+    }
+}
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.6s ease-out forwards;
+        }
+
+        .storage-options {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .storage-card {
+            flex: 1;
+            min-width: 280px;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 18px;
             padding: 2rem;
             text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.7);
+            opacity: 0;
+            transform: translateY(20px);
             cursor: pointer;
         }
-        .upload-zone:hover {
-            border-color: #764ba2;
-            background: rgba(118, 75, 162, 0.05);
+
+        .storage-card:nth-child(1) {
+            animation: fadeUp 0.6s ease-out 0.2s forwards;
         }
-        .upload-zone.dragover {
-            background: rgba(118, 75, 162, 0.1);
-            border-color: #764ba2;
-            transform: scale(1.02);
+
+        .storage-card:nth-child(2) {
+            animation: fadeUp 0.6s ease-out 0.4s forwards;
         }
-        .btn-primary {
+
+        .storage-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .storage-icon {
+            font-size: 3rem;
+            color: #764ba2;
+            margin-bottom: 1.5rem;
+        }
+
+        .storage-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .storage-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .btn-storage {
+            position: relative;
             background: linear-gradient(45deg, #667eea, #764ba2);
             border: none;
             color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 12px;
+            font-weight: 500;
             transition: all 0.3s ease;
         }
-        .btn-primary:hover {
+
+        .btn-storage:not([disabled]):hover {
             background: linear-gradient(45deg, #764ba2, #667eea);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(118, 75, 162, 0.2);
-        }
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-        .text-primary {
-            color: #764ba2 !important;
-        }
-        .btn-link {
-            color: #764ba2;
-            text-decoration: none;
-        }
-        .btn-link:hover {
-            color: #667eea;
-        }
-        .bi-cloud-arrow-up,
-        .bi-file-earmark-arrow-up,
-        .file-icon,
-        .bi-check-circle {
-            color: #764ba2 !important;
-        }
-        .alert-success {
-            background: linear-gradient(45deg, rgba(118, 75, 162, 0.1), rgba(102, 126, 234, 0.1));
-            border: none;
-            border-left: 4px solid #764ba2;
-            color: #764ba2;
-        }
-        .alert-success .bi {
-            color: #764ba2;
-        }
-        .progress-bar {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-        }
-        .file-preview {
-            display: none;
-            margin-top: 1rem;
-            padding: 1rem;
-            background: rgba(118, 75, 162, 0.05);
-            border-radius: 12px;
-            border: 1px solid rgba(118, 75, 162, 0.1);
-        }
-        .file-preview.active {
-            display: block;
-        }
-        .file-preview .list-group-item {
-            transition: all 0.2s ease;
-            padding: 0.75rem;
-            margin-bottom: 0.5rem;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.8) !important;
-        }
-        .file-preview .list-group-item:last-child {
-            margin-bottom: 0;
-        }
-        .file-preview .list-group-item:hover {
-            background: rgba(255, 255, 255, 0.95) !important;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(118, 75, 162, 0.1);
-        }
-        .file-preview .list-group-item i {
-            color: #764ba2;
-        }
-        .remove-file {
-            opacity: 0.6;
-            transition: all 0.2s ease;
-        }
-        .remove-file:hover {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-        .file-preview-header {
-            padding: 0.5rem 1rem;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid rgba(118, 75, 162, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .text-truncate {
-            max-width: 300px;
-        }
-        .profile-pic-wrapper {
-            width: 24px;
-            height: 24px;
-            overflow: hidden;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(118, 75, 162, 0.2);
+            color: white;
+            cursor: pointer;
         }
 
-        .profile-pic-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .btn-storage[disabled] {
+            opacity: 0.7;
+            cursor: not-allowed;
+            position: relative;
         }
 
-        /* Modern Progress Bar */
-        .upload-progress {
-            display: none;
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        .about-section {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.6s ease-out 0.6s forwards;
         }
 
-        .progress {
-            height: 8px;
-            background-color: rgba(118, 75, 162, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 1rem;
+        .about-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
         }
 
-        .progress-bar {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            transition: width 0.2s ease-in-out;
-            border-radius: 4px;
-        }
-
-        .upload-percentage {
+        .about-text {
+            max-width: 800px;
+            margin: 0 auto;
             font-size: 1.1rem;
-            font-weight: 600;
-            color: #764ba2;
-            min-width: 4rem;
-            text-align: right;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
         }
 
-        /* Modern Success Message */
-        .upload-message {
-            display: none;
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            animation: messageSlide 0.3s ease;
-        }
-
-        .upload-message.success {
-            background: linear-gradient(45deg, rgba(118, 75, 162, 0.1), rgba(102, 126, 234, 0.1));
-            border-left: 4px solid #764ba2;
-        }
-
-        .upload-message.error {
-            background: linear-gradient(45deg, rgba(220, 53, 69, 0.1), rgba(255, 107, 107, 0.1));
-            border-left: 4px solid #dc3545;
-        }
-
-        @keyframes messageSlide {
-            from {
-                transform: translateY(-10px);
-                opacity: 0;
-            }
+        @keyframes fadeUp {
             to {
+                opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+                padding: 0 1rem;
+            }
+
+            .storage-options {
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
+            .storage-card {
+                min-width: 100%;
+                padding: 1.5rem;
+            }
+
+            .about-section {
+                padding: 3rem 1rem;
+            }
+
+            .about-title {
+                font-size: 1.75rem;
+            }
+
+            .about-text {
+                font-size: 1rem;
+            }
+
+            .btn-storage {
+                width: 100%;
+                padding: 1rem;
+            }
+
+            .modern-tooltip {
+                max-width: 160px !important;
+            }
+        }
+
+        /* Touch Device Styles */
+        @media (hover: none) {
+            .storage-card:hover {
+                transform: none;
+            }
+
+            .btn-storage:hover {
+                transform: none;
+            }
+        }
+
+       
+        /* Update button hover state */
+        .btn-storage:hover:not([disabled]) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(118, 75, 162, 0.2);
+        }
+
+        .btn-storage[disabled]:hover .modern-tooltip {
+            animation: tooltipPulse 1s ease infinite;
+        }
+
+        @keyframes tooltipPulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .navbar .container .d-flex .profile-pic-wrapper {
+            margin-right: 6px;
+        }
+
+       
+
+        /* Hover effect for disabled button */
+        .btn-storage[disabled] {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-storage[disabled]::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(118, 75, 162, 0.1),
+                rgba(102, 126, 234, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-storage[disabled]:hover::before {
+            opacity: 1;
+        }
+
+        
+
+        @keyframes iconPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.1);
                 opacity: 1;
             }
         }
 
-        /* Add to your existing styles */
-        .modern-popup {
-            padding: 2rem !important;
-            border-radius: 24px !important;
-            background: rgba(255, 255, 255, 0.98) !important;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
-            max-width: 400px !important;
-            width: 90% !important;
+        /* Hover effect refinements */
+        .btn-storage[disabled]:hover + .modern-tooltip {
+            animation: tooltipBounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
-        .modern-timer-bar {
-            background: linear-gradient(to right, #764ba2, #667eea) !important;
-            height: 3px !important;
+        @keyframes tooltipBounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
         }
 
-        .text-warning {
-            color: #ffc107 !important;
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .modern-tooltip {
+                max-width: 200px !important;
+                font-size: 0.9rem !important;
+            }
+
+            .tooltip-content {
+                gap: 8px;
+                padding: 6px;
+            }
+
+            .tooltip-content i {
+                font-size: 1.1rem;
+            }
+
+            .tooltip-inner {
+                padding: 10px 14px !important;
+            }
         }
 
-       /* Add these responsive styles */
-@media (max-width: 768px) {
-    /* Content styles */
-    body {
-        padding-top: 4.5rem;
-    }
-    /* Container and card styles */
-    .container {
-        padding: 0 15px;
-    }
-    
-    .main-card {
-        width: 90%;
-        margin: 1rem auto;
-        padding: 1.5rem !important;
-    }
-
-    
+        /* High-contrast mode support */
+        @media (forced-colors: active) {
+            .modern-tooltip {
+                border: 1px solid CanvasText;
+            }
+            
+            .tooltip-content i,
+            .tooltip-content span {
+                forced-color-adjust: none;
+            }
+        }
 
 
-    .upload-zone {
-        padding: 1.5rem;
-    }
+        .hover-tooltip {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.98);
+    padding: 12px 18px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1),
+                0 8px 24px rgba(118, 75, 162, 0.15);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    transform: translateY(10px); /* Add this line */
+    animation: tooltipFadeInUp 0.3s ease forwards;
+}
 
-    .file-preview .list-group-item {
-        padding: 0.5rem;
+@keyframes tooltipFadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
-
-    .text-truncate {
-        max-width: 200px;
-    }
-
-    .upload-progress {
-        margin-top: 1.5rem;
-        padding: 1rem;
-    }
-
-    .bi-cloud-arrow-up {
-        font-size: 3rem !important;
-    }
-
-    /* Button styles */
-    #uploadBtn {
-        font-size: 0.9rem;
-        padding: 0.5rem 1rem;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-        /* Add to all templates */
-        @media (hover: none) {
-            /* Better touch targets */
-            .btn {
-                min-height: 44px;
-            }
-            
-            /* Disable hover effects */
-            .btn:hover {
-                transform: none !important;
-            }
-            
-            /* Increase touch targets */
-            
-            .btn-link,
-            .form-check-input {
-                padding: 0.5rem 0.75rem;
-            }
-            
-            /* Add active state for touch */
-            .btn:active {
-                opacity: 0.7;
-            }
+/* Add responsive styles */
+@media (max-width: 768px) {
+    .hover-tooltip {
+        padding: 8px 14px;
+        font-size: 0.9rem;
+    }
+    
+    .tooltip-content {
+        gap: 8px;
+    }
+    
+    .tooltip-content i {
+        font-size: 1rem;
+    }
+}
+
+.hover-tooltip .tooltip-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    white-space: nowrap;
+}
+
+.hover-tooltip i {
+    color: #764ba2;
+    font-size: 1.2rem;
+}
+
+.hover-tooltip span {
+    font-weight: 500;
+    background: linear-gradient(45deg, #764ba2, #667eea);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.why-choose-section {
+    position: relative;
+    padding: 5rem 0;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    margin-top: 2rem;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    box-sizing: border-box;
+
+}
+
+/* Add this to ensure container alignment */
+.why-choose-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Optional: Add a subtle overlay to improve contrast */
+.why-choose-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.02);
+    pointer-events: none;
+}
+
+.section-title {
+    text-align: center;
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    font-weight: 700;
+    opacity: 0;
+    animation: fadeUp 0.6s ease-out 0.2s forwards;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    animation: fadeUp 0.6s ease-out forwards;
+}
+
+.feature-card:nth-child(1) { animation-delay: 0.3s; }
+.feature-card:nth-child(2) { animation-delay: 0.4s; }
+.feature-card:nth-child(3) { animation-delay: 0.5s; }
+.feature-card:nth-child(4) { animation-delay: 0.6s; }
+.feature-card:nth-child(5) { animation-delay: 0.7s; }
+.feature-card:nth-child(6) { animation-delay: 0.8s; }
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: #764ba2;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    padding: 1rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(118, 75, 162, 0.1), rgba(102, 126, 234, 0.1));
+}
+
+.feature-card h3 {
+    color: #333;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.feature-card p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Mobile Header Modifications */
+@media (max-width: 768px) {
+    .navbar-brand span {
+        display: none;
+    }
+    
+    .btn-outline-light {
+        padding: 0.5rem;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-outline-light span,
+    .btn-outline-light .bi-google {
+        font-size: 1.2rem;
+        margin: 0 !important;
+    }
+
+    
+
+    .text-white {
+        display: none;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+
+    .feature-card {
+        padding: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+}
+
+/* Modern Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(118, 75, 162, 0.5);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(118, 75, 162, 0.8);
+}
+
+/* Touch Scroll Indicator */
+.scroll-indicator {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.scroll-indicator.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-indicator i {
+    color: #764ba2;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.scroll-indicator:hover i {
+    transform: translateY(-2px);
+}
+
+/* Smooth Section Transitions */
+.section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Mobile Touch Optimizations */
+@media (hover: none) {
+    ::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .scroll-indicator {
+        width: 50px;
+        height: 50px;
+    }
+
+    .scroll-indicator i {
+        font-size: 1.5rem;
+    }
+}
+
+/* Add inside your existing style tag */
+
+@media (max-width: 768px) {
+    
+    .btn-outline-light .bi-person-circle {
+        font-size: 1.4rem !important; /* Makes icon roughly 28px */
+        width: 28px !important;
+        height: 28px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .btn-outline-light {
+        width: 40px !important;
+        height: 40px !important;
+        padding: 6px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border: none !important;
+    }
+
+    /* Profile picture styling */
+    .profile-pic-wrapper {
+        width: 28px;  /* Smaller size for mobile */
+        height: 28px;
+        margin-right: 8px !important;  /* Consistent spacing */
+    }
+
+    .profile-pic-wrapper img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        border-radius: 50% !important;
+    }
+
+    /* Username text */
+    .navbar .text-white {
+        font-size: 0.9rem;  /* Smaller font size */
+        margin-right: 8px !important;
+        white-space: nowrap;  /* Prevent text wrapping */
+        max-width: 100px;  /* Limit width */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: none;  /* Hide username on very small screens */
+    }
+
+     /* Login/Logout button alignment */
+     .navbar .btn-outline-light {
+        margin-left: auto !important;
+        padding: 0.4rem !important;
+        width: 40px !important;
+        height: 40px !important;
+        min-width: unset !important;
+        border: none !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .navbar .btn-outline-light:hover,
+    .navbar .btn-outline-light:focus,
+    .navbar .btn-outline-light:active {
+        background: transparent !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    .navbar .btn-outline-light i {
+        margin: 0 !important;
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.8);  /* Slightly dimmed icon */
+    }
+
+    /* Hide text, keep only icon */
+    .navbar .btn-outline-light span,
+    .navbar .btn-outline-light .me-1 {
+        display: none !important;
+    }
+
+    
+
+    
+}
+
+/* Extra small devices */
+@media (max-width: 375px) {
+    .navbar-brand span {
+        display: none;  /* Hide brand text on very small screens */
+    }
+
+    
+
+    .profile-pic-wrapper {
+        width: 28px;  /* Even smaller for very small screens */
+        height: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Navbar brand alignment */
+    .navbar-brand {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        font-size: 1.1rem;
+        margin: 0 !important;
+        padding-left: 0 !important;
+    }
+
+    /* Container styles */
+    .navbar .container {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 0.5rem 1rem !important;
+        width: 100% !important;
+        gap: 0 !important;
+    }
+    /* Update profile section positioning */
+    .navbar .d-flex.align-items-center,
+    .navbar .btn-outline-light {
+        margin-left: 2px !important;
+    }
+
+    /* Icon spacing in brand */
+    .navbar-brand i {
+        margin-right: 8px !important;
+    }
+
+    /* Ensure proper spacing between elements */
+    .navbar > .container {
+        gap: 0;  /* Remove any gap */
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 375px) {
+    .navbar-brand {
+        font-size: 1rem;  /* Slightly smaller font */
+    }
+
+    
+
+    .navbar-brand span {
+            display: none !important;
         }
 
+        
+    
 
-       
+    /* Icon adjustments */
+    .navbar-brand i {
+        margin-right: 8px !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Login button icon */
+    .navbar .btn-outline-light i {
+        font-size: 1.2rem !important;
+        margin: 0 !important;
+    }
+
+    /* Hide desktop elements */
+    .d-none.d-md-inline {
+        display: none !important;
+    }
+
+    .d-md-none {
+        display: inline-block !important;
+    }
+}
     </style>
-    <!-- Add defer to scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 </head>
-<body>
-    <!-- Add this navbar structure to index.html and files.html -->
+<header>
+    <!-- Replace the navbar section -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <div class="d-flex justify-content-between align-items-center w-100">
-                <a class="navbar-brand d-flex align-items-center" href="/">
-                    <i class="bi bi-cloud-fill me-2" style="color: #ffffff"></i>
-                    Cloud Media Storage
-                </a>
-                <!-- Only shows on mobile -->
-                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-                    <i class="bi bi-list"></i>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarContent">
-                    <div class="navbar-nav ms-auto">
-                        <!-- User Profile First -->
-                        <div class="nav-item d-flex align-items-center">
-                            <span class="nav-link text-white d-flex align-items-center">
-                                {% if current_user.profile_pic %}
-                                <div class="profile-pic-wrapper me-2">
-                                    <img src="{{ current_user.profile_pic }}" 
-                                         class="rounded-circle" 
-                                         width="24" 
-                                         height="24"
-                                         alt="{{ current_user.name }}">
-                                </div>
-                                {% endif %}
-                                <span>{{ current_user.name }}</span>
-                            </span>
-                        </div>
-                        <!-- Navigation Links -->
-                        <a class="nav-link" href="/">Upload</a>
-                        <a class="nav-link" href="/files">My Files</a>
-                        <!-- Logout Last -->
-                        <a class="nav-link" href="{{ url_for('logout') }}">
-                            <i class="bi bi-box-arrow-right"></i> Logout
-                        </a>
-                    </div>
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <i class="bi bi-cloud-fill me-2"></i>
+                Cloud Media Storage
+            </a>
+            
+            {% if current_user.is_authenticated %}
+            <div class="d-flex align-items-center">
+                {% if current_user.profile_pic %}
+                <div class="profile-pic-wrapper">
+                    <img src="{{ current_user.profile_pic }}" 
+                         alt="{{ current_user.name }}"
+                         class="rounded-circle"
+                         referrerpolicy="no-referrer" />
                 </div>
+                {% endif %}
+                <span class="text-white me-3">{{ current_user.name }}</span>
+                <a href="{{ url_for('logout') }}" class="btn btn-outline-light btn-sm">
+                    <i class="bi bi-box-arrow-right me-1"></i>Logout
+                </a>
             </div>
+            {% else %}
+            <a href="{{ url_for('login') }}" class="btn btn-outline-light">
+                <i class="bi bi-google me-2 d-none d-md-inline"></i>
+                <span class="d-none d-md-inline">Login with Google</span>
+                <i class="bi bi-person-circle d-md-none"></i>
+            </a>
+            {% endif %}
         </div>
     </nav>
 
-    <div class="container py-4">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-8">
-                <div class="main-card p-4">
-                    <div class="text-center mb-4">
-                        <i class="bi bi-cloud-arrow-up display-1 text-primary"></i>
-                        <h2 class="mt-3">Upload Your Files</h2>
-                    </div>
+</header>
+<body>
+     
+   
+    <!-- Update the hero section -->
+    <div class="hero-section {% if current_user.is_authenticated %}logged-in{% endif %}">
+    <div class="container">
+        <h1 class="hero-title">Welcome to Cloud Media Storage Web App!</h1>
+    </div>
+</div>
 
-                    {% if error %}
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="bi bi-exclamation-triangle me-2"></i>{{ error }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                    {% endif %}
-                    
-                    {% if success %}
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <i class="bi bi-check-circle me-2"></i>{{ success }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                    {% endif %}
-                    
-                    <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
-                        <div class="upload-zone mb-3" id="dropZone">
-                            <input type="file" name="file[]" class="form-control" id="file-input" hidden multiple accept="*/*">
-                            <label for="file-input" class="d-block mb-0">
-                                <i class="bi bi-file-earmark-arrow-up display-4 text-primary"></i>
-                                <p class="mt-2 mb-0">Drag files here or click to browse</p>
-                                <p class="text-muted small mt-1 mb-0">Select multiple files (50MB max per file)</p>
-                            </label>
-                        </div>
-                        
-                        <div class="file-preview" id="filePreview">
-                            <div id="fileList" class="list-group list-group-flush"></div>
-                        </div>
+    <!-- Storage Options -->
+    <div class="container">
+        <div class="storage-options">
+            <!-- Google Cloud Storage Card -->
+            <div class="storage-card">
+                <i class="bi bi-cloud-arrow-up storage-icon"></i>
+                <h2 class="storage-title">Google Cloud Storage</h2>
+                <p class="storage-description">
+                    Secure, scalable, and reliable storage for your media files with Google Cloud Platform.
+                </p>
+                <!-- Cloud Storage Button -->
+                <button class="btn btn-storage" 
+        id="cloudStorageBtn" 
+        {% if not current_user.is_authenticated %}
+        data-tooltip="Please login first"
+        {% endif %}>
+    <span>Get Started</span>
+</button>
+            </div>
 
-                        <div class="text-center mt-3">
-                            <button type="submit" class="btn btn-primary px-4" id="uploadBtn" disabled>
-                                <i class="bi bi-cloud-upload me-2"></i>Upload Files
-                            </button>
-                        </div>
-                    </form>
-
-                    <div class="upload-progress" id="uploadProgress">
-                        <div class="d-flex align-items-center justify-content-between mb-2">
-                            <div>
-                                <h5 class="mb-0">Uploading Files</h5>
-                                <p class="text-muted mb-0 small" id="uploadStatus">Preparing files...</p>
-                            </div>
-                            <div class="upload-percentage" id="uploadPercentage">0%</div> <!-- Fix closing tag -->
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 0%"></div>
-                        </div>
-                    </div>
-                </div>
+            <!-- Google Drive Storage Card -->
+            <div class="storage-card">
+                <i class="bi bi-google storage-icon"></i>
+                <h2 class="storage-title">Google Drive Storage</h2>
+                <p class="storage-description">
+                    Store and manage your files directly in your Google Drive account.
+                </p>
+                
+                <button class="btn btn-storage" 
+                id="driveStorageBtn"
+                {% if not current_user.is_authenticated %}
+                data-tooltip="Please login first"
+                {% endif %}>
+            <span>Get Started</span>
+        </button>
             </div>
         </div>
     </div>
 
+    <!-- About Section -->
+    <div class="about-section">
+        <div class="container">
+            <h2 class="about-title">About this Web App</h2>
+            <p class="about-text">
+                This web app helps you connect and manage files between your device and Google Cloud or Google Drive seamlessly. 
+                Choose your preferred storage solution and get started instantly! With our intuitive interface and powerful features, 
+                managing your media files has never been easier.
+            </p>
+        </div>
+    </div>
+
+    <!-- Add this after the about-section div -->
+<div class="why-choose-section">
+    <div class="container">
+        <h2 class="section-title">Why Choose Us</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="bi bi-shield-check feature-icon"></i>
+                <h3>Secure Storage</h3>
+                <p>Enterprise-grade security with encrypted file transfer and storage.</p>
+            </div>
+            <div class="feature-card">
+                <i class="bi bi-lightning-charge feature-icon"></i>
+                <h3>Fast Upload</h3>
+                <p>Quick and reliable file uploads with optimized transfer speeds.</p>
+            </div>
+            <div class="feature-card">
+                <i class="bi bi-cloud-check feature-icon"></i>
+                <h3>Cloud Integration</h3>
+                <p>Seamless integration with Google Cloud and Drive services.</p>
+            </div>
+            <div class="feature-card">
+                <i class="bi bi-phone feature-icon"></i>
+                <h3>Mobile Ready</h3>
+                <p>Fully responsive design for perfect mobile experience.</p>
+            </div>
+            <div class="feature-card">
+                <i class="bi bi-clock-history feature-icon"></i>
+                <h3>24/7 Access</h3>
+                <p>Access your files anytime, anywhere with continuous availability.</p>
+            </div>
+            <div class="feature-card">
+                <i class="bi bi-arrows-angle-expand feature-icon"></i>
+                <h3>Scalable Storage</h3>
+                <p>Flexible storage options that grow with your needs.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const dropZone = document.getElementById('dropZone');
-        const fileInput = document.getElementById('file-input');
-        const uploadForm = document.getElementById('uploadForm');
-        const filePreview = document.getElementById('filePreview');
-        const fileList = document.getElementById('fileList');
-        const uploadBtn = document.getElementById('uploadBtn');
-
-        function handleFileSelect(e) {
-            const files = Array.from(e.target.files || e.dataTransfer?.files || []);
-            if (files.length > 0) {
-                let validFiles = true;
-
-                files.forEach(file => {
-                    if (file.size > 50 * 1024 * 1024) {
-                        // Show error with SweetAlert2
-                        Swal.fire({
-                            title: 'File Size Error',
-                            html: `
-                                <div class="text-center">
-                                    <i class="bi bi-exclamation-circle text-warning" style="font-size: 3rem;"></i>
-                                    <p class="mt-3 mb-0">${file.name} exceeds 50MB limit</p>
-                                </div>
-                            `,
-                            showConfirmButton: false,
-                            timer: 2000, // Increased from 500
-                            customClass: {
-                                popup: 'modern-popup',
-                            }
-                        });
-                        validFiles = false;
-                    }
-                });
-
-                if (!validFiles) {
-                    fileInput.value = '';
-                    clearPreview();
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 2000); // Increased from 1000
-                    return;
-                }
-
-                const transfer = new DataTransfer();
-                files.forEach(file => transfer.items.add(file));
-                fileInput.files = transfer.files;
-                
-                showFilePreview(files);
-                updateUploadButton(files.length);
-            } else {
-                clearPreview();
-            }
-        }
-
-        function updateUploadButton(fileCount) {
-            uploadBtn.disabled = fileCount === 0;
-            uploadBtn.innerHTML = `<i class="bi bi-cloud-upload me-2"></i>Upload ${fileCount} File${fileCount > 1 ? 's' : ''}`;
-        }
-
-        // Update the showFilePreview function
-        function showFilePreview(files) {
-            fileList.innerHTML = `
-                <div class="file-preview-header">
-                    <span class="text-muted">Selected Files (${files.length})</span>
-                    <button type="button" class="btn btn-link p-0 text-muted" id="clearAllBtn">
-                        Clear All
-                    </button>
-                </div>
-            `;
-            
-            files.forEach(file => {
-                const fileItem = document.createElement('div');
-                fileItem.className = 'list-group-item d-flex align-items-center border-0 py-2';
-                
-                // Determine file icon based on mimetype
-                const fileIcon = getFileIcon(file.type);
-                
-                fileItem.innerHTML = `
-                    <i class="bi ${fileIcon} me-2 text-primary"></i>
-                    <div class="flex-grow-1">
-                        <div class="text-truncate" style="max-width: calc(100% - 100px);">
-                            ${file.name}
-                        </div>
-                        <small class="text-muted">${(file.size / (1024 * 1024)).toFixed(2)} MB</small>
-                    </div>
-                    <button type="button" class="btn btn-link text-danger p-0 ms-3 remove-file" 
-                            data-filename="${file.name}">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                `;
-                fileList.appendChild(fileItem);
-            });
-            
-            filePreview.classList.add('active');
-            addRemoveHandlers();
-
-            // Add Clear All button handler
-            document.getElementById('clearAllBtn').addEventListener('click', clearPreview);
-        }
-
-        // Add this helper function for file icons
-        function getFileIcon(mimetype) {
-            if (mimetype.startsWith('image/')) return 'bi-file-image';
-            if (mimetype.startsWith('video/')) return 'bi-file-play';
-            if (mimetype.startsWith('audio/')) return 'bi-file-music';
-            if (mimetype.includes('pdf')) return 'bi-file-pdf';
-            if (mimetype.includes('word')) return 'bi-file-word';
-            if (mimetype.includes('excel') || mimetype.includes('spreadsheet')) return 'bi-file-excel';
-            if (mimetype.includes('powerpoint') || mimetype.includes('presentation')) return 'bi-file-ppt';
-            return 'bi-file-earmark';
-        }
-
-        // Add this function after the getFileIcon function
-        function addRemoveHandlers() {
-            document.querySelectorAll('.remove-file').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const filename = this.dataset.filename;
-                    const dt = new DataTransfer();
-                    
-                    Array.from(fileInput.files)
-                        .filter(f => f.name !== filename)
-                        .forEach(f => dt.items.add(f));
-                    
-                    fileInput.files = dt.files;
-                    
-                    if (fileInput.files.length === 0) {
-                        clearPreview();
-                    } else {
-                        showFilePreview(Array.from(fileInput.files));
-                        updateUploadButton(fileInput.files.length);
-                    }
-                });
-            });
-        }
-
-        function handleDrop(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            handleFileSelect(e);
-        }
-
-        function clearPreview() {
-            filePreview.classList.remove('active');
-            fileList.innerHTML = '';
-            updateUploadButton(0);
-            fileInput.value = '';
-        }
-
-        // Replace the existing showMessage function
-        function showMessage(message, type = 'success') {
-            const alertDiv = document.createElement('div');
-            alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
-            alertDiv.setAttribute('role', 'alert');
-            alertDiv.innerHTML = `
-                <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            `;
-            
-            // Remove any existing alerts
-            document.querySelectorAll('.alert').forEach(alert => alert.remove());
-            
-            // Insert the alert before the form
-            uploadForm.parentNode.insertBefore(alertDiv, uploadForm);
-            
-            // For success messages, reload after delay
-            if (type === 'success') {
-                setTimeout(() => {
-                    window.location.href = window.location.pathname;
-                }, 2000); // Increased from 1000
-            }
-        }
-
-        // Update the form submission handler
-        uploadForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            if (!fileInput.files.length) {
-                showMessage('Please select files first', 'danger');
-                return false;
-            }
-
-            const formData = new FormData();
-            Array.from(fileInput.files).forEach(file => {
-                formData.append('file[]', file);
-            });
-
-            // Hide upload zone and button
-            dropZone.style.display = 'none';
-            uploadBtn.style.display = 'none';
-            filePreview.style.display = 'none';
-
-            // Show progress bar
-            const progressDiv = document.getElementById('uploadProgress');
-            const progressBar = progressDiv.querySelector('.progress-bar');
-            const percentageDiv = document.getElementById('uploadPercentage');
-            const statusDiv = document.getElementById('uploadStatus');
-            
-            progressDiv.style.display = 'block';
-            
-            try {
-                const xhr = new XMLHttpRequest();
-                
-                // Track upload progress
-                xhr.upload.addEventListener('progress', (e) => {
-                    if (e.lengthComputable) {
-                        const percentage = Math.round((e.loaded * 100) / e.total);
-                        progressBar.style.width = `${percentage}%`;
-                        percentageDiv.textContent = `${percentage}%`;
-                        statusDiv.textContent = percentage === 100 ? 
-                            'Processing...' : `Uploading ${fileInput.files.length} file(s)...`;
-                    }
-                });
-
-                // Handle completion
-                const response = await new Promise((resolve, reject) => {
-                    xhr.onload = () => {
-                        if (xhr.status === 200) {
-                            resolve({
-                                ok: true,
-                                json: () => Promise.resolve(JSON.parse(xhr.response))
-                            });
-                        } else {
-                            resolve({
-                                ok: false,
-                                json: () => Promise.resolve(JSON.parse(xhr.response))
-                            });
-                        }
-                    };
-                    xhr.onerror = () => reject(new Error('Network error'));
-                    
-                    xhr.open('POST', '/upload');
-                    xhr.send(formData);
-                });
-
-                const result = await response.json();
-                
-                if (response.ok) {
-                    // Show success state in progress bar
-                    progressBar.style.width = '100%';
-                    percentageDiv.textContent = '100%';
-                    statusDiv.textContent = 'Completed!';
-                    
-                    // Hide progress bar after showing 100%
-                    progressDiv.style.display = 'none';
-                    
-                    // Create and show success message
-                    const successDiv = document.createElement('div');
-                    successDiv.className = 'text-center p-4';
-                    successDiv.innerHTML = `
-                        <i class="bi bi-check-circle text-success" style="font-size: 3rem;"></i>
-                        <h4 class="mt-3 mb-2">Upload Successful!</h4>
-                        <p class="text-muted mb-0">${result.message || 'Files have been uploaded successfully!'}</p>
-                    `;
-                    
-                    // Replace form content with success message
-                    const mainCard = document.querySelector('.main-card');
-                    mainCard.innerHTML = '';
-                    mainCard.appendChild(successDiv);
-                    
-                    // Start background reload immediately
-                    const iframe = document.createElement('iframe');
-                    iframe.style.display = 'none';
-                    iframe.src = window.location.href;
-                    document.body.appendChild(iframe);
-                    
-                    // Actual page reload after success message (1000ms)
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 2000); // Increased from 1500
-                } else {
-                    throw new Error(result.error || 'Upload failed');
-                }
-
-            } catch (error) {
-                console.error('Upload error:', error);
-                progressDiv.style.display = 'none';
-                
-                // Show error message in card
-                const errorDiv = document.createElement('div');
-                errorDiv.className = 'text-center p-4';
-                errorDiv.innerHTML = `
-                    <i class="bi bi-exclamation-circle text-danger" style="font-size: 3rem;"></i>
-                    <h4 class="mt-3 mb-2">Upload Failed</h4>
-                    <p class="text-muted mb-0">${error.message || 'Please try again.'}</p>
-                `;
-                
-                // Replace form content with error message
-                const mainCard = document.querySelector('.main-card');
-                mainCard.innerHTML = '';
-                mainCard.appendChild(errorDiv);
-                
-                // Start page reload in background
-                const iframe = document.createElement('iframe');
-                iframe.style.display = 'none';
-                iframe.src = window.location.href;
-                document.body.appendChild(iframe);
-                
-                // Actual page reload after showing error (1000ms)
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2000); // Increased from 1000
-            }
-        });
-
-        // Event Listeners
-        fileInput.addEventListener('change', handleFileSelect);
+        document.addEventListener('DOMContentLoaded', function() {
+            const driveStorageBtn = document.getElementById('driveStorageBtn');
+            const cloudStorageBtn = document.getElementById('cloudStorageBtn');
+            const isAuthenticated = "{{ current_user.is_authenticated|tojson }}" === "true";
         
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropZone.addEventListener(eventName, e => e.preventDefault(), false);
-            document.body.addEventListener(eventName, e => e.preventDefault(), false);
-        });
-
-        ['dragenter', 'dragover'].forEach(eventName => {
-            dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
-        });
-
-        ['dragleave', 'drop'].forEach(eventName => {
-            dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
-        });
-
-        dropZone.addEventListener('drop', handleDrop, false);
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" async defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" async defer></script>
-    <!-- Add this script to both index.html and files.html -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const navbar = document.querySelector('.navbar');
-        const navbarToggler = document.querySelector('.navbar-toggler');
-        const navbarCollapse = document.querySelector('.navbar-collapse');
-
-        // Toggle menu icon rotation and navbar background
-        navbarToggler.addEventListener('click', function() {
-            navbar.classList.toggle('expanded');
-            this.classList.toggle('collapsed');
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!navbar.contains(e.target)) {
-                navbarCollapse.classList.remove('show');
-                navbar.classList.remove('expanded');
-                navbarToggler.classList.add('collapsed');
+            // Create tooltip element once
+            const tooltip = document.createElement('div');
+            tooltip.id = 'custom-tooltip';
+            tooltip.className = 'hover-tooltip';
+            document.body.appendChild(tooltip);
+        
+            function showTooltip(element, message) {
+                tooltip.innerHTML = `
+                    <div class="tooltip-content">
+                        <i class="bi bi-info-circle-fill"></i>
+                        <span>${message}</span>
+                    </div>`;
+                
+                const rect = element.getBoundingClientRect();
+                // Position tooltip below the button
+                tooltip.style.top = `${rect.bottom + 10}px`; // Changed from rect.top - tooltip.offsetHeight - 10
+                tooltip.style.left = `${rect.left + (rect.width - tooltip.offsetWidth) / 2}px`;
+                tooltip.style.opacity = '1';
+                tooltip.style.visibility = 'visible';
             }
-        });
+        
+            function hideTooltip() {
+                tooltip.style.opacity = '0';
+                tooltip.style.visibility = 'hidden';
+            }
+        
+            // Button click handlers
+            if (driveStorageBtn) {
+                driveStorageBtn.addEventListener('click', function() {
+                    if (isAuthenticated) {
+                        window.location.href = "{{ url_for('g_upload') }}";
+                    } else {
+                        window.location.href = "{{ url_for('login') }}";
+                    }
+                });
+            }
+        
+            if (cloudStorageBtn) {
+                cloudStorageBtn.addEventListener('click', function() {
+                    if (isAuthenticated) {
+                        window.location.href = "{{ url_for('upload') }}";
+                    } else {
+                        window.location.href = "{{ url_for('login') }}";
+                    }
+                });
+            }
+        
+            // Apply hover events if not authenticated
+            if (!isAuthenticated) {
+                [cloudStorageBtn, driveStorageBtn].forEach(button => {
+                    if (button) {
+                        button.addEventListener('mouseenter', () => {
+                            showTooltip(button, 'Please login first');
+                        });
+                        button.addEventListener('mouseleave', hideTooltip);
+                    }
+                });
+            }
 
-        // Handle Bootstrap collapse events
-        navbarCollapse.addEventListener('show.bs.collapse', function () {
-            navbar.classList.add('expanded');
-        });
+            // Scroll Indicator
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            let isScrolling;
 
-        navbarCollapse.addEventListener('hide.bs.collapse', function () {
-            navbar.classList.remove('expanded');
-        });
+            // Show/hide scroll indicator
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 100) {
+                    scrollIndicator.classList.add('visible');
+                } else {
+                    scrollIndicator.classList.remove('visible');
+                }
 
-        // Add animation delays to nav items
-        const navItems = document.querySelectorAll('.nav-item');
-        navItems.forEach((item, index) => {
-            item.style.transitionDelay = `${(index + 1) * 0.1}s`;
+                // Show on touch scroll
+                clearTimeout(isScrolling);
+                scrollIndicator.classList.add('visible');
+
+                isScrolling = setTimeout(() => {
+                    if (window.pageYOffset <= 100) {
+                        scrollIndicator.classList.remove('visible');
+                    }
+                }, 1500);
+            });
+
+            // Scroll to top when clicked
+            scrollIndicator.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Intersection Observer for section animations
+            const sections = document.querySelectorAll('.hero-section, .about-section, .why-choose-section');
+            const observerOptions = {
+                threshold: 0.2
+            };
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        sectionObserver.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                section.classList.add('section');
+                sectionObserver.observe(section);
+            });
         });
-    });
-    </script>
+        </script>
+<!-- Add before </body> -->
+<div class="scroll-indicator">
+    <i class="bi bi-arrow-up"></i>
+</div>
 </body>
 </html>

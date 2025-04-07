@@ -6,235 +6,484 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Add font preloading -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2" as="font" type="font/woff2" crossorigin>
+
     <style>
         body {
+            min-height: 100vh;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
             margin: 0;
+            font-family: 'Roboto', sans-serif;
+            padding: 1rem;
         }
 
-        .container {
+        .login-container {
             width: 100%;
-            max-width: 420px; /* Reduced from 420px */
-            margin: 0;
-            padding: 0 15px;
+            max-width: 400px;
+            perspective: 1000px;
         }
 
         .login-card {
-            background: rgba(255, 255, 255, 0.95);
-            width: 100%;
-            min-height: 480px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            backdrop-filter: blur(16px);
+            border-radius: 24px;
+            box-shadow: 
+                0 10px 30px rgba(118, 75, 162, 0.2),
+                inset 0 0 20px rgba(102, 126, 234, 0.1);
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                45deg,
+                rgba(102, 126, 234, 0.05) 0%,
+                rgba(118, 75, 162, 0.05) 100%
+            );
+            border-radius: inherit;
+            transition: opacity 0.4s ease;
+            opacity: 0;
         }
 
         .login-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 20px 40px rgba(118, 75, 162, 0.25),
+                inset 0 0 30px rgba(102, 126, 234, 0.2);
         }
 
-        .google-btn {
-            background: #fff;
-            color: #444;
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+        .login-card:hover::before {
+            opacity: 1;
         }
 
-        .google-btn:hover {
-            background: #f8f9fa;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
+        .login-card:active {
+            transform: translateY(2px) scale(0.98);
+            box-shadow: 
+                0 5px 15px rgba(118, 75, 162, 0.2),
+                inset 0 0 10px rgba(102, 126, 234, 0.1);
+            transition: all 0.1s ease;
         }
 
+        .card-body {
+            padding: 2.5rem 2rem;
+        }
+
+        /* Update the app-icon styles */
         .app-icon {
-            font-size: 3rem;
-            color: #764ba2;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Add glow effect */
+        .app-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: inherit;
+            filter: blur(15px);
+            opacity: 0.5;
+            z-index: -1;
+            animation: pulse 6s ease-in-out infinite;
+        }
+
+        /* Add particle effects */
+        .app-icon::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            padding: 2px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.8;
+            animation: rotate 4s linear infinite;
+        }
+
+        .app-icon i {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: colorShift 6s ease-in-out infinite;
+        }
+
+        .content-wrapper {
+            margin-bottom: 2rem;
+        }
+
+        .welcome-text {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1rem;
             margin-bottom: 1.5rem;
         }
 
         .error-message {
             background: rgba(220, 53, 69, 0.1);
-            border-left: 4px solid #dc3545;
+            color: #dc3545;
             padding: 1rem;
+            border-radius: 12px;
             margin-bottom: 1.5rem;
-            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .g-recaptcha {
-            display: inline-block;
-            margin-bottom: 1.5rem;
+        .error-message i {
+            font-size: 1.2rem;
         }
 
         .captcha-container {
+            margin-bottom: 1.5rem;
+            transform: scale(0.9); /* Slightly smaller on all devices */
+            transform-origin: center;
+            transition: transform 0.3s ease;
+        }
+
+        #recaptcha-container {
             display: flex;
             justify-content: center;
-            margin: 1rem 0;
+            min-height: 78px; /* Fixed height to prevent layout shift */
         }
 
-        .col-md-5 {
-            width: 100%;
-            padding: 0;
+        .google-btn {
+            background: white;
+            color: #333;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0.8rem;
+            border-radius: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
 
-        .card-body {
-            padding: 2.5rem !important;
+        .google-btn:not(:disabled):hover {
+            background: #f8f9fa;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .text-center.text-white.mt-4 {
-            margin-top: 1.5rem !important;
+        .google-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
         }
 
-        /* Add these responsive styles */
-        @media (max-width: 768px) {
-            .container {
-                max-width: 340px;
-                padding: 0 20px;
+        .google-btn img {
+            width: 20px;
+            height: 20px;
+            margin-right: 0.5rem;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 1.5rem;
+        }
+
+        .security-badge i {
+            color: #764ba2;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
             }
-            
-            .login-card {
-                min-height: 400px;
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-card {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 480px) {
+            .card-body {
                 padding: 2rem 1.5rem;
             }
-            
-            .card-body {
-                padding: 1.5rem !important;
+
+            .welcome-text {
+                font-size: 1.75rem;
             }
-            
+
             .app-icon {
-                font-size: 2.25rem;
-                margin-bottom: 1rem;
+                width: 70px;
+                height: 70px;
             }
-            
-            h1.h3 {
-                font-size: 1.4rem;
+
+            .app-icon i {
+                font-size: 2rem;
             }
-            
-            .google-btn {
-                padding: 0.5rem;
-                font-size: 0.95rem;
-            }
-            
+
             .captcha-container {
-                transform: scale(0.9);
-                transform-origin: center;
-                margin: 0.5rem 0;
+                transform: scale(0.85); /* Even smaller on mobile */
+                margin-left: -20px; /* Adjust for scaling */
+                margin-right: -20px;
             }
-            
-            .text-center.text-white.mt-4 {
-                margin-top: 1rem !important;
+
+            /* Increase touch target size */
+            .g-recaptcha > div > div {
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            /* Reduce animation intensity for better performance */
+            .app-icon::after {
+                filter: blur(10px);
             }
         }
 
-        /* Fix mobile landscape */
-        @media (max-height: 600px) {
-            body {
-                height: auto;
-                min-height: 100vh;
-            }
-            
-            .login-card {
-                margin: 1rem 0;
-            }
-        }
-
-        /* Add to all templates */
+        /* Touch Device Optimization */
         @media (hover: none) {
-            /* Better touch targets */
-            .btn {
+            .login-card {
+                transition: transform 0.2s ease;
+            }
+
+            .login-card:active {
+                transform: scale(0.98);
+                box-shadow: 
+                    0 5px 15px rgba(118, 75, 162, 0.2),
+                    inset 0 0 10px rgba(102, 126, 234, 0.1);
+            }
+
+            .login-card:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
+
+        .verification-success {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+            color: #198754;
+            font-size: 0.9rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .google-btn.verified {
+            border-color: #198754;
+            background: rgba(25, 135, 84, 0.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animation keyframes */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-6px) rotate(-2deg);
+            }
+            75% {
+                transform: translateY(6px) rotate(2deg);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1.1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes colorShift {
+            0%, 100% {
+                filter: hue-rotate(0deg);
+            }
+            50% {
+                filter: hue-rotate(30deg);
+            }
+        }
+
+        /* Reduce motion if user prefers */
+        @media (prefers-reduced-motion: reduce) {
+            .app-icon,
+            .app-icon::before,
+            .app-icon::after,
+            .app-icon i {
+                animation: none;
+            }
+        }
+
+        /* Add to your existing styles in login.html */
+        .g-recaptcha {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .g-recaptcha > div {
+            margin: 0 auto;
+            max-width: 100%;
+        }
+
+        .g-recaptcha iframe {
+            transform-origin: center;
+            transition: transform 0.2s ease;
+        }
+
+        /* Touch device specific styles */
+        @media (hover: none) {
+            .g-recaptcha {
+                min-height: 78px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .g-recaptcha > div {
+                transform: scale(0.95);
+            }
+
+            .g-recaptcha:active iframe {
+                transform: scale(0.98);
+            }
+            
+            /* Increase touch target size */
+            .g-recaptcha div > div {
+                min-width: 44px;
                 min-height: 44px;
             }
-            
-            /* Disable hover effects */
-            .btn:hover {
-                transform: none !important;
-            }
-            
-            /* Increase touch targets */
-            .nav-link,
-            .btn-link,
-            .form-check-input {
-                padding: 0.5rem 0.75rem;
-            }
-            
-            /* Add active state for touch */
-            .btn:active,
-            .nav-link:active {
-                opacity: 0.7;
-            }
-        }
-
-        /* Improve scrolling on mobile */
-        .table-container {
-            -webkit-overflow-scrolling: touch;
-        }
-
-        /* Fix fixed positioning on mobile */
-        .navbar {
-            position: fixed;
-            -webkit-transform: translateZ(0);
-            transform: translateZ(0);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-5">
-                <div class="card login-card">
-                    <div class="card-body text-center">
-                        <div class="app-icon">
-                            <i class="bi bi-cloud-arrow-up-fill"></i>
-                        </div>
-                        <h1 class="h3 mb-3">Welcome Back!</h1>
-                        <p class="text-muted mb-4">Access your secure cloud storage</p>
-                        
-                        {% if error %}
-                        <div class="error-message">
-                            <i class="bi bi-exclamation-circle"></i>
-                            {{ error }}
-                        </div>
-                        {% endif %}
-
-                        <div class="captcha-container">
-                            <div id="recaptcha-container"></div>
-                        </div>
-
-                        <button onclick="handleLogin()" class="btn google-btn btn-lg w-100 mb-3" id="googleLoginBtn" disabled>
-                            <img src="https://www.google.com/favicon.ico" alt="Google" width="20" class="me-2">
-                            Continue with Google
-                        </button>
-                        
-                        <p class="text-muted small mt-4 mb-0">
-                            <i class="bi bi-shield-check"></i>
-                            Your files are secure and encrypted
-                        </p>
-                    </div>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="card-body text-center" style="position: relative;">
+                <div class="app-icon">
+                    <i class="bi bi-cloud-arrow-up-fill"></i>
                 </div>
                 
-                <div class="text-center text-white mt-4">
-                    <p class="small mb-0">
-                        <i class="bi bi-lock"></i> 
-                        Your privacy is our priority
-                    </p>
+                <div class="content-wrapper">
+                    <h1 class="welcome-text">Welcome Back!</h1>
+                    <p class="subtitle">Access your secure cloud storage</p>
+                    
+                    {% if error %}
+                    <div class="error-message">
+                        <i class="bi bi-exclamation-circle"></i>
+                        {{ error }}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="captcha-container">
+                    <div id="recaptcha-container"></div>
+                </div>
+
+                <form id="loginForm" action="/start-auth" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="button" onclick="handleLogin()" class="btn google-btn btn-lg w-100 mb-3" id="googleLoginBtn" disabled>
+                        <img src="https://www.google.com/favicon.ico" alt="Google" width="20" class="me-2">
+                        Continue with Google
+                    </button>
+                </form>
+                
+                <div class="security-badge">
+                    <i class="bi bi-shield-check"></i>
+                    Your files are secure and encrypted
                 </div>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+    
     <script>
-        var onloadCallback = function() {
+     var onloadCallback = function() {
             grecaptcha.render('recaptcha-container', {
                 'sitekey': '6LdcIgUrAAAAAFCrJQfPxOZhgCXXib_OF6GE1Kd_',
                 'callback': enableLogin,
-                'theme': 'light'
+                'theme': 'light',
+                'size': 'normal',
+                'tabindex': 0  // Ensure it's focusable
             });
+
+            // Add touch-specific optimizations
+            const recaptchaFrame = document.querySelector('.g-recaptcha iframe');
+            if (recaptchaFrame) {
+                recaptchaFrame.style.cssText = `
+                    touch-action: manipulation;
+                    -webkit-tap-highlight-color: transparent;
+                    cursor: pointer;
+                `;
+            }
+
+            // Add touch event listeners
+            const recaptchaElement = document.querySelector('.g-recaptcha');
+            if (recaptchaElement) {
+                recaptchaElement.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    this.click();
+                }, { passive: false });
+            }
         };
 
         function enableLogin(token) {
@@ -246,15 +495,24 @@
         function handleLogin() {
             const recaptchaResponse = grecaptcha.getResponse();
             if (!recaptchaResponse) {
-                alert('Please complete the reCAPTCHA verification first');
-                return;
+                Swal.fire({
+                icon: 'warning',
+                title: 'Verification Required',
+                text: 'Please complete the reCAPTCHA verification first',
+                confirmButtonColor: '#764ba2'
+            });
+            return;
             }
+
+            // Get CSRF token from the hidden input
+        const csrfToken = document.querySelector('input[name="csrf_token"]').value;
             
             // Add recaptcha token to state
             fetch('/start-auth', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
                 },
                 body: JSON.stringify({
                     'g-recaptcha-response': recaptchaResponse
@@ -265,14 +523,22 @@
                 if (data.auth_url) {
                     window.location.href = data.auth_url;
                 } else {
-                    alert('Authentication failed. Please try again.');
+                    throw new Error('Authentication failed');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Authentication failed. Please try again.');
+                Swal.fire({
+                icon: 'error',
+                title: 'Authentication Failed',
+                text: 'Please try again',
+                confirmButtonColor: '#764ba2'
+            });
+            // Reset reCAPTCHA on failure
+            grecaptcha.reset();
+            document.getElementById('googleLoginBtn').disabled = true;
             });
         }
-    </script>
+</script>
 </body>
 </html>

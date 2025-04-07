@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cloud Media Storage</title>
+    <!-- Keep these regular links -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding-top: 75px;
+            scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(118, 75, 162, 0.5) rgba(255, 255, 255, 0.1);
+        }
+        .container {
+            max-width: 1140px;  /* Changed from 1400px to match files.html */
+        }
+        .main-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            width: 600px;
+            margin: 0 auto;
+            min-height: auto;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        /* Improve scrolling on mobile */
+        .table-container {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .upload-zone {
+            border: 2px dashed rgba(118, 75, 162, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+        }
+        .upload-zone:hover {
+            border-color: #764ba2;
+            background: rgba(118, 75, 162, 0.05);
+        }
+        .upload-zone.dragover {
+            background: rgba(118, 75, 162, 0.1);
+            border-color: #764ba2;
+            transform: scale(1.02);
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(118, 75, 162, 0.2);
+        }
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        .text-primary {
+            color: #764ba2 !important;
+        }
+        .btn-link {
+            color: #764ba2;
+            text-decoration: none;
+        }
+        .btn-link:hover {
+            color: #667eea;
+        }
+        .bi-cloud-arrow-up,
+        .bi-file-earmark-arrow-up,
+        .file-icon,
+        .bi-check-circle {
+            color: #764ba2 !important;
+        }
+        .alert-success {
+            background: linear-gradient(45deg, rgba(118, 75, 162, 0.1), rgba(102, 126, 234, 0.1));
+            border: none;
+            border-left: 4px solid #764ba2;
+            color: #764ba2;
+        }
+        .alert-success .bi {
+            color: #764ba2;
+        }
+        .progress-bar {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+        .file-preview {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(118, 75, 162, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(118, 75, 162, 0.1);
+        }
+        .file-preview.active {
+            display: block;
+        }
+        .file-preview .list-group-item {
+            transition: all 0.2s ease;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.8) !important;
+        }
+        .file-preview .list-group-item:last-child {
+            margin-bottom: 0;
+        }
+        .file-preview .list-group-item:hover {
+            background: rgba(255, 255, 255, 0.95) !important;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(118, 75, 162, 0.1);
+        }
+        .file-preview .list-group-item i {
+            color: #764ba2;
+        }
+        .remove-file {
+            opacity: 0.6;
+            transition: all 0.2s ease;
+        }
+        .remove-file:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        .file-preview-header {
+            padding: 0.5rem 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(118, 75, 162, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .text-truncate {
+            max-width: 300px;
+        }
+
+        /* Modern Progress Bar */
+        .upload-progress {
+            display: none;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .progress {
+            height: 8px;
+            background-color: rgba(118, 75, 162, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .progress-bar {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transition: width 0.2s ease-in-out;
+            border-radius: 4px;
+        }
+
+        .upload-percentage {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #764ba2;
+            min-width: 4rem;
+            text-align: right;
+        }
+
+        /* Modern Success Message */
+        .upload-message {
+            display: none;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            animation: messageSlide 0.3s ease;
+        }
+
+        .upload-message.success {
+            background: linear-gradient(45deg, rgba(118, 75, 162, 0.1), rgba(102, 126, 234, 0.1));
+            border-left: 4px solid #764ba2;
+        }
+
+        .upload-message.error {
+            background: linear-gradient(45deg, rgba(220, 53, 69, 0.1), rgba(255, 107, 107, 0.1));
+            border-left: 4px solid #dc3545;
+        }
+
+        @keyframes messageSlide {
+            from {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Add to your existing styles */
+        .modern-popup {
+            padding: 2rem !important;
+            border-radius: 24px !important;
+            background: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+            max-width: 400px !important;
+            width: 90% !important;
+        }
+
+        .modern-timer-bar {
+            background: linear-gradient(to right, #764ba2, #667eea) !important;
+            height: 3px !important;
+        }
+
+        .text-warning {
+            color: #ffc107 !important;
+        }
+
+       /* Add these responsive styles */
+@media (max-width: 768px) {
+    /* Content styles */
+    body {
+        padding-top: 4.5rem;
+    }
+    /* Container and card styles */
+    .container {
+        padding: 0 15px;
+    }
+    
+    .main-card {
+        width: 90%;
+        margin: 1rem auto;
+        padding: 1.5rem !important;
+    }
+
+    
+
+
+    .upload-zone {
+        padding: 1.5rem;
+    }
+
+    .file-preview .list-group-item {
+        padding: 0.5rem;
+    }
+
+    .text-truncate {
+        max-width: 200px;
+    }
+
+    .upload-progress {
+        margin-top: 1.5rem;
+        padding: 1rem;
+    }
+
+    .bi-cloud-arrow-up {
+        font-size: 3rem !important;
+    }
+
+    /* Button styles */
+    #uploadBtn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+        /* Add to all templates */
+        @media (hover: none) {
+            /* Better touch targets */
+            .btn {
+                min-height: 44px;
+            }
+            
+            /* Disable hover effects */
+            .btn:hover {
+                transform: none !important;
+            }
+            
+            /* Increase touch targets */
+            
+            .btn-link,
+            .form-check-input {
+                padding: 0.5rem 0.75rem;
+            }
+            
+            /* Add active state for touch */
+            .btn:active {
+                opacity: 0.7;
+            }
+        }
+
+        /* Webkit Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(118, 75, 162, 0.5);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(118, 75, 162, 0.8);
+}
+
+/* Touch Scroll Indicator */
+.scroll-indicator {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.scroll-indicator.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-indicator i {
+    color: #764ba2;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.scroll-indicator:hover i {
+    transform: translateY(-2px);
+}
+
+/* Smooth Section Transitions */
+.section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Mobile Touch Optimizations */
+@media (hover: none) {
+    ::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .scroll-indicator {
+        width: 50px;
+        height: 50px;
+    }
+
+    .scroll-indicator i {
+        font-size: 1.5rem;
+    }
+}
+
+       
+    </style>
+    <!-- Add defer to scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+</head>
+<body>
+    <!-- Add this navbar structure in both files.html and upload.html -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <i class="bi bi-cloud-fill me-2"></i>
+                Cloud Media Storage
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bi bi-list"></i>
+            </button>
+    
+            {% if current_user.is_authenticated %}
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <div class="navbar-nav">
+                    <div class="nav-item d-flex align-items-center">
+                        {% if current_user.profile_pic %}
+                        <div class="profile-pic-wrapper">
+                            <img src="{{ current_user.profile_pic }}" 
+                                 alt="{{ current_user.name }}"
+                                 class="rounded-circle"
+                                 referrerpolicy="no-referrer" />
+                        </div>
+                        {% endif %}
+                        <span class="nav-link text-white">{{ current_user.name }}</span>
+                    </div>
+                    <a class="nav-link" href="{{ url_for('upload') }}">
+                        <i class="bi bi-cloud-upload me-2"></i>Upload
+                    </a>
+                    <a class="nav-link" href="{{ url_for('list_files') }}">
+                        <i class="bi bi-folder me-2"></i>My Files
+                    </a>
+                    <a class="nav-link" href="{{ url_for('index') }}">
+                        <i class="bi bi-arrow-left-circle"></i>
+                        <span>Back to Dashboard</span>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="main-card p-4">
+                    <div class="text-center mb-4">
+                        <i class="bi bi-cloud-arrow-up display-1 text-primary"></i>
+                        <h2 class="mt-3">Upload Your Files</h2>
+                    </div>
+
+                    {% if error %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="bi bi-exclamation-triangle me-2"></i>{{ error }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endif %}
+                    
+                    {% if success %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="bi bi-check-circle me-2"></i>{{ success }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endif %}
+                    
+                    <form action="{{ url_for('upload_files') }}" method="post" enctype="multipart/form-data" id="uploadForm">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <div class="upload-zone mb-3" id="dropZone">
+                            <input type="file" name="file[]" class="form-control" id="file-input" hidden multiple accept="*/*">
+                            <label for="file-input" class="d-block mb-0">
+                                <i class="bi bi-file-earmark-arrow-up display-4 text-primary"></i>
+                                <p class="mt-2 mb-0">Drag files here or click to browse</p>
+                                <p class="text-muted small mt-1 mb-0">Select multiple files (50MB max per file)</p>
+                            </label>
+                        </div>
+                        
+                        <div class="file-preview" id="filePreview">
+                            <div id="fileList" class="list-group list-group-flush"></div>
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-primary px-4" id="uploadBtn" disabled>
+                                <i class="bi bi-cloud-upload me-2"></i>Upload Files
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="upload-progress" id="uploadProgress">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <div>
+                                <h5 class="mb-0">Uploading Files</h5>
+                                <p class="text-muted mb-0 small" id="uploadStatus">Preparing files...</p>
+                            </div>
+                            <div class="upload-percentage" id="uploadPercentage">0%</div> <!-- Fix closing tag -->
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('file-input');
+        const uploadForm = document.getElementById('uploadForm');
+        const filePreview = document.getElementById('filePreview');
+        const fileList = document.getElementById('fileList');
+        const uploadBtn = document.getElementById('uploadBtn');
+
+        function handleFileSelect(e) {
+            const files = Array.from(e.target.files || e.dataTransfer?.files || []);
+            if (files.length > 0) {
+                let validFiles = true;
+
+                files.forEach(file => {
+                    if (file.size > 50 * 1024 * 1024) {
+                        // Show error with SweetAlert2
+                        Swal.fire({
+                            title: 'File Size Error',
+                            html: `
+                                <div class="text-center">
+                                    <i class="bi bi-exclamation-circle text-warning" style="font-size: 3rem;"></i>
+                                    <p class="mt-3 mb-0">${file.name} exceeds 50MB limit</p>
+                                </div>
+                            `,
+                            showConfirmButton: false,
+                            timer: 2000, // Increased from 500
+                            customClass: {
+                                popup: 'modern-popup',
+                            }
+                        });
+                        validFiles = false;
+                    }
+                });
+
+                if (!validFiles) {
+                    fileInput.value = '';
+                    clearPreview();
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000); // Increased from 1000
+                    return;
+                }
+
+                const transfer = new DataTransfer();
+                files.forEach(file => transfer.items.add(file));
+                fileInput.files = transfer.files;
+                
+                showFilePreview(files);
+                updateUploadButton(files.length);
+            } else {
+                clearPreview();
+            }
+        }
+
+        function updateUploadButton(fileCount) {
+            uploadBtn.disabled = fileCount === 0;
+            uploadBtn.innerHTML = `<i class="bi bi-cloud-upload me-2"></i>Upload ${fileCount} File${fileCount > 1 ? 's' : ''}`;
+        }
+
+        // Update the showFilePreview function
+        function showFilePreview(files) {
+            fileList.innerHTML = `
+                <div class="file-preview-header">
+                    <span class="text-muted">Selected Files (${files.length})</span>
+                    <button type="button" class="btn btn-link p-0 text-muted" id="clearAllBtn">
+                        Clear All
+                    </button>
+                </div>
+            `;
+            
+            files.forEach(file => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'list-group-item d-flex align-items-center border-0 py-2';
+                
+                // Determine file icon based on mimetype
+                const fileIcon = getFileIcon(file.type);
+                
+                fileItem.innerHTML = `
+                    <i class="bi ${fileIcon} me-2 text-primary"></i>
+                    <div class="flex-grow-1">
+                        <div class="text-truncate" style="max-width: calc(100% - 100px);">
+                            ${file.name}
+                        </div>
+                        <small class="text-muted">${(file.size / (1024 * 1024)).toFixed(2)} MB</small>
+                    </div>
+                    <button type="button" class="btn btn-link text-danger p-0 ms-3 remove-file" 
+                            data-filename="${file.name}">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                `;
+                fileList.appendChild(fileItem);
+            });
+            
+            filePreview.classList.add('active');
+            addRemoveHandlers();
+
+            // Add Clear All button handler
+            document.getElementById('clearAllBtn').addEventListener('click', clearPreview);
+        }
+
+        // Add this helper function for file icons
+        function getFileIcon(mimetype) {
+            if (mimetype.startsWith('image/')) return 'bi-file-image';
+            if (mimetype.startsWith('video/')) return 'bi-file-play';
+            if (mimetype.startsWith('audio/')) return 'bi-file-music';
+            if (mimetype.includes('pdf')) return 'bi-file-pdf';
+            if (mimetype.includes('word')) return 'bi-file-word';
+            if (mimetype.includes('excel') || mimetype.includes('spreadsheet')) return 'bi-file-excel';
+            if (mimetype.includes('powerpoint') || mimetype.includes('presentation')) return 'bi-file-ppt';
+            return 'bi-file-earmark';
+        }
+
+        // Add this function after the getFileIcon function
+        function addRemoveHandlers() {
+            document.querySelectorAll('.remove-file').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const filename = this.dataset.filename;
+                    const dt = new DataTransfer();
+                    
+                    Array.from(fileInput.files)
+                        .filter(f => f.name !== filename)
+                        .forEach(f => dt.items.add(f));
+                    
+                    fileInput.files = dt.files;
+                    
+                    if (fileInput.files.length === 0) {
+                        clearPreview();
+                    } else {
+                        showFilePreview(Array.from(fileInput.files));
+                        updateUploadButton(fileInput.files.length);
+                    }
+                });
+            });
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            handleFileSelect(e);
+        }
+
+        function clearPreview() {
+            filePreview.classList.remove('active');
+            fileList.innerHTML = '';
+            updateUploadButton(0);
+            fileInput.value = '';
+        }
+
+        // Replace the existing showMessage function
+        function showMessage(message, type = 'success') {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+            alertDiv.setAttribute('role', 'alert');
+            alertDiv.innerHTML = `
+                <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+            
+            // Remove any existing alerts
+            document.querySelectorAll('.alert').forEach(alert => alert.remove());
+            
+            // Insert the alert before the form
+            uploadForm.parentNode.insertBefore(alertDiv, uploadForm);
+            
+            // For success messages, reload after delay
+            if (type === 'success') {
+                setTimeout(() => {
+                    window.location.href = window.location.pathname;
+                }, 2000); // Increased from 1000
+            }
+        }
+
+        // Update the form submission handler
+        uploadForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (!fileInput.files.length) {
+                showMessage('Please select files first', 'danger');
+                return false;
+            }
+
+            const formData = new FormData();
+            Array.from(fileInput.files).forEach(file => {
+                formData.append('file[]', file);
+            });
+
+             // Add CSRF token to FormData
+        formData.append('csrf_token', document.querySelector('input[name="csrf_token"]').value);
+
+            // Hide upload zone and button
+            dropZone.style.display = 'none';
+            uploadBtn.style.display = 'none';
+            filePreview.style.display = 'none';
+
+            // Show progress bar
+            const progressDiv = document.getElementById('uploadProgress');
+            const progressBar = progressDiv.querySelector('.progress-bar');
+            const percentageDiv = document.getElementById('uploadPercentage');
+            const statusDiv = document.getElementById('uploadStatus');
+            
+            progressDiv.style.display = 'block';
+            
+            try {
+                const xhr = new XMLHttpRequest();
+                
+                // Track upload progress
+                xhr.upload.addEventListener('progress', (e) => {
+                    if (e.lengthComputable) {
+                        const percentage = Math.round((e.loaded * 100) / e.total);
+                        progressBar.style.width = `${percentage}%`;
+                        percentageDiv.textContent = `${percentage}%`;
+                        
+                         // Update status message
+                if (percentage === 100) {
+                    statusDiv.innerHTML = `
+                        <div class="d-flex align-items-center">
+                            <span class="me-2">Processing files...</span>
+                            <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                <span class="visually-hidden">Processing...</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    const uploadedMB = (uploadedSize / (1024 * 1024)).toFixed(1);
+                    const totalMB = (totalSize / (1024 * 1024)).toFixed(1);
+                    statusDiv.textContent = `Uploading: ${uploadedMB}MB / ${totalMB}MB`;
+                }
+                    }
+                });
+
+                // Replace only the response handling part in the submit handler:
+
+// Handle completion
+const response = await new Promise((resolve, reject) => {
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            try {
+                const data = JSON.parse(xhr.responseText);
+                resolve(data); // Just resolve with parsed data directly
+            } catch (e) {
+                reject(new Error('Invalid response format'));
+            }
+        } else {
+            reject(new Error('Upload failed'));
+        }
+    };
+    xhr.onerror = () => reject(new Error('Network error'));
+    xhr.open('POST', '/upload-files');
+    xhr.setRequestHeader('X-CSRFToken', document.querySelector('input[name="csrf_token"]').value);
+    xhr.send(formData);
+});
+
+// Now response is already JSON parsed, so we can use it directly
+if (response.files && response.message) {
+    // Show success state in progress bar
+    progressBar.style.width = '100%';
+    percentageDiv.textContent = '100%';
+    statusDiv.textContent = 'Completed!';
+    
+    // Hide progress bar after showing 100%
+    progressDiv.style.display = 'none';
+    
+    // Create and show success message
+    const successDiv = document.createElement('div');
+    successDiv.className = 'text-center p-4';
+    successDiv.innerHTML = `
+        <i class="bi bi-check-circle text-success" style="font-size: 3rem;"></i>
+        <h4 class="mt-3 mb-2">Upload Successful!</h4>
+        <p class="text-muted mb-0">${response.message}</p>
+    `;
+    
+    // Replace form content with success message
+    const mainCard = document.querySelector('.main-card');
+    mainCard.innerHTML = '';
+    mainCard.appendChild(successDiv);
+    
+    // Redirect to files page after short delay
+    setTimeout(() => {
+        window.location.reload();
+    }, 2000);
+} else {
+    throw new Error(response.error || 'Upload failed');
+}
+
+            } catch (error) {
+                // Show error message
+                showMessage('An error occurred while uploading files. Please try again.', 'danger');
+            }
+        });
+
+        // Event Listeners
+        fileInput.addEventListener('change', handleFileSelect);
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, e => e.preventDefault(), false);
+            document.body.addEventListener(eventName, e => e.preventDefault(), false);
+        });
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+        });
+
+        dropZone.addEventListener('drop', handleDrop, false);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" async defer></script>
+    <!-- Add this script to both index.html and files.html -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const navbar = document.querySelector('.navbar');
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+
+        // Toggle menu background and icon rotation
+        navbarToggler.addEventListener('click', function() {
+            navbar.classList.toggle('expanded');
+            this.classList.toggle('collapsed');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navbar.contains(e.target)) {
+                navbarCollapse.classList.remove('show');
+                navbar.classList.remove('expanded');
+                navbarToggler.classList.add('collapsed');
+            }
+        });
+
+        // Handle Bootstrap collapse events
+        navbarCollapse.addEventListener('show.bs.collapse', function () {
+            navbar.classList.add('expanded');
+        });
+
+        navbarCollapse.addEventListener('hide.bs.collapse', function () {
+            navbar.classList.remove('expanded');
+        });
+
+        // Add animation delays to nav items
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach((item, index) => {
+            item.style.transitionDelay = `${(index + 1) * 0.1}s`;
+        });
+    
+
+     // Scroll Indicator
+     const scrollIndicator = document.querySelector('.scroll-indicator');
+    let isScrolling;
+
+    // Show/hide scroll indicator
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 100) {
+            scrollIndicator.classList.add('visible');
+        } else {
+            scrollIndicator.classList.remove('visible');
+        }
+
+        // Show on touch scroll
+        clearTimeout(isScrolling);
+        scrollIndicator.classList.add('visible');
+
+        isScrolling = setTimeout(() => {
+            if (window.pageYOffset <= 100) {
+                scrollIndicator.classList.remove('visible');
+            }
+        }, 1500);
+    });
+
+    // Scroll to top when clicked
+    scrollIndicator.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // Intersection Observer for section animations
+    const sections = document.querySelectorAll('.hero-section, .about-section, .why-choose-section');
+    const observerOptions = {
+        threshold: 0.2
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                sectionObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => {
+        section.classList.add('section');
+        sectionObserver.observe(section);
+    });
+
+});
+
+    </script>
+    <!-- Add before </body> -->
+<div class="scroll-indicator">
+    <i class="bi bi-arrow-up"></i>
+</div>
+</body>
+</html>

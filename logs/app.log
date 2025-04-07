@@ -1,0 +1,1556 @@
+2025-04-05 02:26:26,499 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:26:26,500 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:26:26,641 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:26:26,642 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:26:28,215 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:26:28,216 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:26:40,603 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:26:40,604 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:26:40,626 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:26:40,626 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:28:48,801 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:28:48,802 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:28:48,869 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:28:48,871 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:28:54,583 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:28:54,584 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:29:05,172 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:29:05,172 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:29:05,191 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:29:05,193 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:34:26,321 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:34:26,322 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:34:26,743 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:34:26,744 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:34:29,972 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:34:29,973 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:34:35,729 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:34:35,731 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:37:26,770 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:37:26,771 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:40:06,014 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:40:06,016 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:40:06,461 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:40:06,462 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:40:08,894 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:40:08,895 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:40:17,494 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:40:17,494 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:41:34,173 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:41:34,174 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:41:34,626 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:41:34,627 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:41:36,037 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:41:36,038 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:41:43,655 - app - INFO - [app.py:170] - Files table exists with schema:
+2025-04-05 02:41:43,656 - app - INFO - [app.py:171] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:46:30,195 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:46:30,196 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:46:30,249 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:46:30,251 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:46:33,146 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:46:33,147 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:46:47,337 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:46:47,338 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:46:47,791 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:46:47,792 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:46:49,395 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:46:49,396 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:46:56,450 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:46:56,450 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:47:14,190 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:47:14,191 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:52:46,762 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:52:46,763 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:52:55,315 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:52:55,316 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:52:55,341 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:52:55,342 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:53:11,263 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:53:11,264 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:53:11,528 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:53:11,529 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:53:14,459 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:53:14,459 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:55:34,546 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:55:34,547 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:55:35,022 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:55:35,023 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:55:36,908 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:55:36,909 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:55:52,378 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:55:52,379 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:55:52,631 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:55:52,631 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:55:55,393 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:55:55,394 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:56:20,819 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:56:20,820 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:56:21,446 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:56:21,446 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:56:28,409 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:56:28,411 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:56:28,943 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:56:28,944 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:56:39,830 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:56:39,830 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 02:56:39,849 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 02:56:39,849 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 03:05:11,033 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 03:05:11,034 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 03:05:11,110 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 03:05:11,111 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 03:05:13,016 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 03:05:13,017 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 03:05:20,555 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 03:05:20,556 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 03:05:20,879 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 03:05:20,880 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 03:09:13,942 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 03:09:13,954 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 03:09:14,022 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 03:09:14,030 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 03:09:15,730 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 03:09:15,731 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 03:09:26,860 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 03:09:26,861 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 12:48:59,529 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 12:48:59,530 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 12:48:59,565 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 12:48:59,565 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 12:49:01,191 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 12:49:01,191 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 12:49:23,581 - app - INFO - [app.py:162] - Files table exists with schema:
+2025-04-05 12:49:23,582 - app - INFO - [app.py:163] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:09:28,837 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:09:28,838 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:09:29,188 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:09:29,189 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:09:30,600 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:09:30,601 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:09:33,373 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:09:33,373 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:09:36,133 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:09:36,134 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:12:36,253 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:12:36,254 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:12:36,599 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:12:36,600 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:12:38,446 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:12:38,446 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:12:41,101 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:12:41,101 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:14:55,509 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:14:55,510 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:14:55,853 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:14:55,853 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:14:57,472 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:14:57,472 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:15:00,238 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:15:00,239 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:25:01,836 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:25:01,837 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:25:01,874 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:25:01,875 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:25:06,781 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:25:06,782 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:28:01,308 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:28:01,309 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:28:01,473 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:28:01,473 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:28:03,370 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:28:03,370 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:28:47,367 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:28:47,368 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:28:47,991 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:28:47,992 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:28:54,968 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:28:54,968 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:35:36,729 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:35:36,729 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:35:36,870 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:35:36,871 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:35:38,390 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:35:38,390 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:35:54,053 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:35:54,054 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:35:54,069 - app - INFO - [app.py:166] - Files table exists with schema:
+2025-04-05 13:35:54,070 - app - INFO - [app.py:167] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:45:27,583 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 13:45:27,584 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:45:27,760 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 13:45:27,760 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:45:30,448 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 13:45:30,449 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:45:49,359 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 13:45:49,360 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:49:27,871 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 13:49:27,872 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:49:28,031 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 13:49:28,032 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:49:30,969 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 13:49:30,970 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:49:35,538 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 13:49:35,539 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 13:49:35,554 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 13:49:35,554 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 14:18:17,988 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 14:18:17,989 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 14:18:18,039 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 14:18:18,040 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 14:18:21,848 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 14:18:21,849 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 14:18:35,880 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 14:18:35,881 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 14:18:36,782 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 14:18:36,783 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 14:24:17,408 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 14:24:17,408 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 14:24:17,444 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 14:24:17,444 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 14:24:20,236 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 14:24:20,237 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 14:24:31,271 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 14:24:31,272 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 14:26:09,039 - app - INFO - [app.py:180] - Creating files table...
+2025-04-05 14:26:09,046 - app - INFO - [app.py:197] - Files table created successfully
+2025-04-05 14:26:17,298 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 14:26:17,300 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 14:26:17,731 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 14:26:17,732 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 14:26:20,195 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 14:26:20,196 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )
+2025-04-05 14:26:32,885 - app - INFO - [app.py:177] - Files table exists with schema:
+2025-04-05 14:26:32,885 - app - INFO - [app.py:178] - CREATE TABLE files (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_file_id INTEGER,
+                    user_id TEXT NOT NULL,
+                    filename TEXT NOT NULL,
+                    storage_path TEXT NOT NULL,
+                    mimetype TEXT NOT NULL,
+                    filesize INTEGER NOT NULL,
+                    upload_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    upload_status TEXT DEFAULT 'pending',
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    UNIQUE(user_id, user_file_id)
+                )

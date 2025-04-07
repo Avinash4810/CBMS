@@ -1,17 +1,165 @@
-\error.html -->
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Error</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Error - Cloud Media Storage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .error-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 3rem 2rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .error-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        .error-icon i {
+            font-size: 3rem;
+            color: #dc3545;
+            animation: shake 0.8s ease-in-out;
+        }
+
+        .error-title {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .error-message {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .btn-return {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            color: white;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-return:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(118, 75, 162, 0.2);
+            color: white;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0); }
+            20% { transform: rotate(-15deg); }
+            40% { transform: rotate(10deg); }
+            60% { transform: rotate(-5deg); }
+            80% { transform: rotate(5deg); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .error-card {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+
+            .error-icon {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 1.5rem;
+            }
+
+            .error-icon i {
+                font-size: 2.5rem;
+            }
+
+            .error-title {
+                font-size: 1.5rem;
+            }
+
+            .error-message {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .btn-return {
+                padding: 0.7rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Add smooth scroll for touch devices */
+        @media (hover: none) {
+            .btn-return:active {
+                transform: scale(0.98);
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <div class="alert alert-danger">
-            <h4>Error Occurred</h4>
-            <p>{{ error }}</p>
-            <a href="/" class="btn btn-primary">Return Home</a>
+    <div class="error-card">
+        <div class="error-icon">
+            <i class="bi bi-exclamation-triangle"></i>
         </div>
+        <h1 class="error-title">Oops! Something went wrong</h1>
+        <p class="error-message">{{ error }}</p>
+        <a href="/" class="btn-return">
+            <i class="bi bi-house-fill"></i>
+            Return Home
+        </a>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

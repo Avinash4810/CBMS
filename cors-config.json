@@ -1,13 +1,21 @@
 [
     {
-        "origin": ["http://localhost:5000"],
-        "method": ["GET", "POST", "PUT", "DELETE"],
+        "origin": [
+            "http://localhost:5000",
+            "http://127.0.0.1:5000",
+            "https://storage.googleapis.com"
+        ],
+        "method": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         "responseHeader": [
             "Content-Type",
             "Authorization",
             "Content-Length",
             "User-Agent",
-            "x-goog-*"
+            "x-goog-*",
+            "x-requested-with",
+            "Access-Control-Allow-Origin",
+            "Access-Control-Allow-Methods",
+            "Access-Control-Allow-Headers"
         ],
         "maxAgeSeconds": 3600
     }

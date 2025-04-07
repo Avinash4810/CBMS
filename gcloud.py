@@ -1,4 +1,5 @@
 import os
+import json
 import logging
 from google.cloud import storage
 from google.oauth2 import service_account
@@ -9,27 +10,35 @@ class CloudStorage:
     def __init__(self):
         try:
             # Get absolute path to service account file
-            current_dir = os.path.dirname(os.path.abspath(__file__))
-            service_account_path = os.path.join(current_dir, 'service-account.json')
+            service_account_path = os.path.abspath(
+                os.path.join(os.path.dirname(__file__), "service-account.json")
+            )
             
+            # Verify file exists
             if not os.path.exists(service_account_path):
                 raise FileNotFoundError(f"Service account file not found at: {service_account_path}")
-
-            # Create credentials object
+                
+            # Load and validate JSON
+            try:
+                with open(service_account_path, 'r') as f:
+                    credentials_info = json.load(f)
+            except json.JSONDecodeError as e:
+                raise ValueError(f"Invalid JSON in service account file: {e}")
+            
+            # Create credentials
             credentials = service_account.Credentials.from_service_account_file(
                 service_account_path,
                 scopes=['https://www.googleapis.com/auth/cloud-platform']
             )
 
-            # Initialize storage client with credentials
+            # Initialize client with explicit project ID
             self.client = storage.Client(
-                project='cloud-based-media-storage',
+                project=credentials_info['project_id'],
                 credentials=credentials
             )
             
             self.bucket_name = "cbms-storage"
             
-            # Get or create bucket
             try:
                 self.bucket = self.client.get_bucket(self.bucket_name)
                 logging.info(f"Connected to existing bucket: {self.bucket_name}")
